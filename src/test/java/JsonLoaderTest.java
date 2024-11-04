@@ -167,4 +167,91 @@ class JsonLoaderTest {
 
     }
 
+//    @Test
+//    void potionListTest() {
+//        Market market = new Market();
+//        market.createPotionList();
+//        System.out.println(market.getPotions());
+//    }
+
+//    @Test
+//    void spellListTest() {
+//        Market market = new Market();
+//        market.createSpellList();
+//        System.out.println(market.getSpells());
+//    }
+
+//    @Test
+//    void weaponListTest() {
+//        Market market = new Market();
+//        market.createWeaponList();
+//        System.out.println(market.getWeapons());
+//    }
+
+//    @Test
+//    void marketTest() {
+//        Market market = new Market();
+//        market.createRandomMarket();
+//        System.out.println(market.getMarket());
+//    }
+
+//    @Test
+//    void sellItemTest() {
+//        GameUtlity gameUtlity = new GameUtlity();
+//        HeroFactory heroFactory = new WarriorFactory();
+//        HeroRegistry heroRegistry = HeroRegistry.getInstance();
+//
+//        ArrayList<Object> attributes = gameUtlity.getHeroInitialInfo("Eunoia_Cyn", gameUtlity.isHeroNameValid("Eunoia_Cyn"));
+//        ArrayList<Object> attributes2 = gameUtlity.getHeroInitialInfo("Undefeated_Yoj", gameUtlity.isHeroNameValid("Undefeated_Yoj"));
+//        Hero hero = heroFactory.createHero(attributes);
+//        Hero hero2 = heroFactory.createHero(attributes2);
+//
+//        heroRegistry.addHero("Eunoia_Cyn", hero);
+//        heroRegistry.addHero("Undefeated_Yoj", hero2);
+//
+//        Market market = new Market();
+//        market.createRandomMarket();
+//        System.out.println(market.getMarket());
+//        System.out.println();
+//
+//        market.sellItem("Heat_Wave", "Eunoia_Cyn");
+//
+//        System.out.println(market.getMarket());
+//        System.out.println();
+//        System.out.println(heroRegistry.getHero("Eunoia_Cyn"));
+//    }
+
+//    @Test
+//    void buyItemTest(){
+//        GameUtlity gameUtlity = new GameUtlity();
+//        HeroFactory heroFactory = new WarriorFactory();
+//        HeroRegistry heroRegistry = HeroRegistry.getInstance();
+//
+//        ArrayList<Object> attributes = gameUtlity.getHeroInitialInfo("Eunoia_Cyn", gameUtlity.isHeroNameValid("Eunoia_Cyn"));
+//        ArrayList<Object> attributes2 = gameUtlity.getHeroInitialInfo("Undefeated_Yoj", gameUtlity.isHeroNameValid("Undefeated_Yoj"));
+//        Hero hero = heroFactory.createHero(attributes);
+//        Hero hero2 = heroFactory.createHero(attributes2);
+//
+//        heroRegistry.addHero("Eunoia_Cyn", hero);
+//        heroRegistry.addHero("Undefeated_Yoj", hero2);
+//
+//        ArrayList<Object> a1 = gameUtlity.getPotionInfo("Ambrosia", JsonArrayHolder.getInstance().getPotionJSONArray());
+//        Potion p1 = new Potion(a1);
+//
+//        heroRegistry.getHero("Eunoia_Cyn").addInventory("Ambrosia", p1);
+//
+//        Market market = new Market();
+//        market.createRandomMarket();
+//        System.out.println(market.getMarket());
+//        System.out.println();
+//        System.out.println(heroRegistry.getHero("Eunoia_Cyn"));
+//        System.out.println();
+//
+//        market.buyItem("Ambrosia", "Eunoia_Cyn");
+//
+//        System.out.println(market.getMarket());
+//        System.out.println();
+//        System.out.println(heroRegistry.getHero("Eunoia_Cyn"));
+//    }
+
 }

@@ -63,4 +63,14 @@ public class Weapon {
     public void setRequiredHands(int requiredHands) {
         this.requiredHands = requiredHands;
     }
+
+    @Override
+    public String toString() {
+        return "{name='" + name + '\'' +
+                ", cost=" + cost +
+                ", requiredLevel=" + requiredLevel +
+                ", damage=" + damage +
+                ", requiredHands=" + requiredHands +
+                '}';
+    }
 }

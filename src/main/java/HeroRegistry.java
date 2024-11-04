@@ -5,7 +5,7 @@ public class HeroRegistry {
 
     private static HeroRegistry instance;
 
-    private Map<String, Hero> heroMap;
+    private HashMap<String, Hero> heroMap;
 
     private HeroRegistry() {
         heroMap = new HashMap<>();
@@ -35,7 +35,7 @@ public class HeroRegistry {
         heroMap.remove(name);
     }
 
-    public Map<String, Hero> getHeroMap() {
+    public HashMap<String, Hero> getHeroMap() {
         return heroMap;
     }
 }
