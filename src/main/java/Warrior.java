@@ -18,7 +18,7 @@ public class Warrior implements Hero {
     private String type;
     private int empty_hand;
 
-    public Warrior(String name, int mana, int strength, int agility, int dexterity, int Gold, int level, String type) {
+    public Warrior(String name, double mana, double strength, double agility, double dexterity, double Gold, double level, String type) {
         this.name = name;
         this.mana = mana;
         this.strength = strength;
@@ -100,23 +100,6 @@ public class Warrior implements Hero {
                 ", Inventory=" + Inventory +
                 ", empty_hand=" + empty_hand +
                 '}';
-    }
-
-    public JSONObject toJSON() {
-        JSONObject hero = new JSONObject();
-        hero.put("name", this.name);
-        hero.put("mana", this.mana);
-        hero.put("strength", this.strength);
-        hero.put("agility", this.agility);
-        hero.put("dexterity", this.dexterity);
-        hero.put("Gold", this.Gold);
-        hero.put("level", this.level);
-        hero.put("type", this.type);
-        hero.put("Hp", this.Hp);
-        hero.put("Xp", this.Xp);
-        hero.put("Inventory", this.Inventory);
-        hero.put("empty_hand", this.empty_hand);
-        return hero;
     }
 
     public void addInventory(String item_name, Object item) {

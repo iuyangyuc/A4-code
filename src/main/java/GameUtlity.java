@@ -57,45 +57,6 @@ public class GameUtlity {
         return heroInfo;
     }
 
-    public ArrayList<Object> getHeroCurrentInfo(String name, JSONArray jsonArray) {
-        ArrayList<Object> heroInfo = new ArrayList<>();
-
-        for (int i = 0; i < jsonArray.length(); i++) {
-            JSONObject hero = jsonArray.getJSONObject(i);
-            if (hero.getString("name").equals(name)) {
-                heroInfo.add(hero.get("name"));
-                heroInfo.add(hero.get("mana"));
-                heroInfo.add(hero.get("strength"));
-                heroInfo.add(hero.get("agility"));
-                heroInfo.add(hero.get("dexterity"));
-                heroInfo.add(hero.get("Gold"));
-                heroInfo.add(hero.get("level"));
-                heroInfo.add(hero.get("type"));
-                heroInfo.add(hero.get("Hp"));
-                heroInfo.add(hero.get("Xp"));
-
-                // Modify Inventory to get each item individually
-                JSONObject inventory = hero.getJSONObject("Inventory");
-                ArrayList<Object> inventoryList = new ArrayList<>();
-                for (String key : inventory.keySet()) {
-                    JSONObject item = inventory.getJSONObject(key);
-                    ArrayList<Object> itemDetails = new ArrayList<>();
-                    itemDetails.add("Item Name: " + item.getString("name"));
-                    itemDetails.add("Cost: " + item.getInt("cost"));
-                    itemDetails.add("Increase Value: " + item.getInt("increaseValue"));
-                    itemDetails.add("Required Level: " + item.getInt("requiredLevel"));
-                    itemDetails.add("Attributes: " + item.getJSONArray("attribute"));
-                    inventoryList.add(itemDetails);
-                }
-                heroInfo.add(inventoryList); // Add inventory list to heroInfo
-
-                heroInfo.add(hero.get("empty_hand"));
-            }
-        }
-
-        return heroInfo;
-    }
-
     public ArrayList<Object> getPotionInfo(String name, JSONArray jsonArray){
         ArrayList<Object> potionInfo = new ArrayList<>();
         ArrayList<String> attributes = new ArrayList<>();
@@ -130,16 +91,19 @@ public class GameUtlity {
         return weaponInfo;
     }
 
-    public void heroToJSONFile(HashMap<String, Hero> heroInfo){
-        JSONArray jsonArray = new JSONArray();
-        for(String key: heroInfo.keySet()){
-            jsonArray.put(heroInfo.get(key).toJSON());
+    public ArrayList<Object> getSpellInfo(String name, JSONArray jsonArray){
+        ArrayList<Object> spellInfo = new ArrayList<>();
+        for (int i = 0; i < jsonArray.length(); i++) {
+            if (jsonArray.getJSONObject(i).getString("name").equals(name)) {
+                spellInfo.add(jsonArray.getJSONObject(i).get("name"));
+                spellInfo.add(jsonArray.getJSONObject(i).get("cost"));
+                spellInfo.add(jsonArray.getJSONObject(i).get("required_level"));
+                spellInfo.add(jsonArray.getJSONObject(i).get("damage"));
+                spellInfo.add(jsonArray.getJSONObject(i).get("mana_cost"));
+                spellInfo.add(jsonArray.getJSONObject(i).get("type"));
+                spellInfo.add(jsonArray.getJSONObject(i).get("usage"));
+            }
         }
-        try {
-            Files.write(Paths.get("src/main/java/current.json"), jsonArray.toString().getBytes(), StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
+        return spellInfo;
     }
 }

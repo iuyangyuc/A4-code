@@ -29,6 +29,5 @@ public interface Hero {
     HashMap<String, Object> getInventory();
     String getType();
     int getEmpty_hand();
-    JSONObject toJSON();
     void addInventory(String item_name, Object item);
 }

@@ -69,29 +69,55 @@ class JsonLoaderTest {
     void createHero() {
         GameUtlity gameUtlity = new GameUtlity();
         HeroFactory heroFactory = new WarriorFactory();
-        HashMap<String, Hero> heroMap = new HashMap<>();
+        HeroRegistry heroRegistry = HeroRegistry.getInstance();
+        ArrayList<Object> a1 = new ArrayList<>();
+        a1.add("Hp");
+
         ArrayList<Object> attributes = gameUtlity.getHeroInitialInfo("Eunoia_Cyn", gameUtlity.isHeroNameValid("Eunoia_Cyn"));
         ArrayList<Object> attributes2 = gameUtlity.getHeroInitialInfo("Undefeated_Yoj", gameUtlity.isHeroNameValid("Undefeated_Yoj"));
         Hero hero = heroFactory.createHero(attributes);
         Hero hero2 = heroFactory.createHero(attributes2);
-        heroMap.put("Eunoia_Cyn", hero);
-        heroMap.put("Undefeated_Yoj", hero2);
+
+        heroRegistry.addHero("Eunoia_Cyn", hero);
+        heroRegistry.addHero("Undefeated_Yoj", hero2);
+
         hero.levelUp();
         hero2.levelUp();
 
+        System.out.println(heroRegistry.getHero("Eunoia_Cyn"));
+
+        //public Potion(String name, int cost, int requiredLevel, int increaseValue, ArrayList<Object> attribute, int usage)
+        Potion p1 = new Potion("Health Potion", 10, 10, 10, a1, 10);
+        hero.addInventory("Health Potion", p1);
+        System.out.println(heroRegistry.getHero("Eunoia_Cyn"));
+    }
+
+    @Test
+    void createHero2() {
+        GameUtlity gameUtlity = new GameUtlity();
+        HeroFactory heroFactory = new PaladinFactory();
+        HeroFactory heroFactory1 = new SorcererFactory();
+        HeroRegistry heroRegistry = HeroRegistry.getInstance();
         ArrayList<Object> a1 = new ArrayList<>();
         a1.add("Hp");
-        Potion potion = new Potion("Potion of Healing", 10, 10, 10, a1, 2);
-        hero.addInventory("Potion of Healing", potion);
 
-        gameUtlity.heroToJSONFile(heroMap);
-        JsonLoader.loadCurrentHeroJSONArray();
+        ArrayList<Object> attributes = gameUtlity.getHeroInitialInfo("Caliber_Heist", gameUtlity.isHeroNameValid("Caliber_Heist"));
+        ArrayList<Object> attributes2 = gameUtlity.getHeroInitialInfo("Kalabar", gameUtlity.isHeroNameValid("Kalabar"));
+        Hero hero = heroFactory.createHero(attributes);
+        Hero hero2 = heroFactory1.createHero(attributes2);
 
-        ArrayList<Object> attributes3 = gameUtlity.getHeroCurrentInfo("Eunoia_Cyn", JsonArrayHolder.getInstance().getCurrentHeroJSONArray());
-        ArrayList<Object> attributes4 = gameUtlity.getHeroCurrentInfo("Undefeated_Yoj", JsonArrayHolder.getInstance().getCurrentHeroJSONArray());
-        Hero hero3 = heroFactory.createHero(attributes3);
-        Hero hero4 = heroFactory.createHero(attributes4);
-        System.out.println(hero3);
+        heroRegistry.addHero("Caliber_Heist", hero);
+        heroRegistry.addHero("Kalabar", hero2);
+
+        hero.levelUp();
+        hero2.levelUp();
+
+        System.out.println(heroRegistry.getHero("Caliber_Heist"));
+
+        //public Potion(String name, int cost, int requiredLevel, int increaseValue, ArrayList<Object> attribute, int usage)
+        Potion p1 = new Potion("Health Potion", 10, 10, 10, a1, 10);
+        hero.addInventory("Health Potion", p1);
+        System.out.println(heroRegistry.getHero("Caliber_Heist"));
     }
 
 }
