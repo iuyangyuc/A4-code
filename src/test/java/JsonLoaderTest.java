@@ -120,4 +120,12 @@ class JsonLoaderTest {
         System.out.println(heroRegistry.getHero("Caliber_Heist"));
     }
 
+    @Test
+    void potionTest() {
+        GameUtlity gameUtlity = new GameUtlity();
+        ArrayList<Object> a1 = gameUtlity.getPotionInfo("Ambrosia", JsonArrayHolder.getInstance().getPotionJSONArray());
+        Potion p1 = new Potion(a1);
+        System.out.println(p1);
+    }
+
 }

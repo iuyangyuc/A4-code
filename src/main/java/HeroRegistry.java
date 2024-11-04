@@ -12,13 +12,6 @@ public class HeroRegistry {
     }
 
     public static HeroRegistry getInstance() {
-        if (instance == null) {
-            synchronized (HeroRegistry.class) {
-                if (instance == null) {
-                    instance = new HeroRegistry();
-                }
-            }
-        }
         return instance;
     }
 
