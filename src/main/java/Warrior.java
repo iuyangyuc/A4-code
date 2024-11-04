@@ -1,22 +1,24 @@
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Objects;
 
-public class Hero {
+public class Warrior implements Hero {
     private String name;
-    private int mana;
-    private int strength;
-    private int agility;
-    private int dexterity;
-    private int Gold;
-    private int level;
-    private int Hp;
-    private int Xp;
+    private double mana;
+    private double strength;
+    private double agility;
+    private double dexterity;
+    private double Gold;
+    private double level;
+    private double Hp;
+    private double Xp;
     private HashMap<String, Object> Inventory;
     private String type;
     private int empty_hand;
 
-    public Hero(String name, int mana, int strength, int agility, int dexterity, int Gold, int level, String type) {
+    public Warrior(String name, int mana, int strength, int agility, int dexterity, int Gold, int level, String type) {
         this.name = name;
         this.mana = mana;
         this.strength = strength;
@@ -31,7 +33,7 @@ public class Hero {
         this.empty_hand = 2;
     }
 
-    public Hero(ArrayList<Object> attributes) {
+    public Warrior(ArrayList<Object> attributes) {
         this.name = (String) attributes.get(0);
         this.mana = (int) attributes.get(1);
         this.strength = (int) attributes.get(2);
@@ -47,27 +49,41 @@ public class Hero {
     }
 
     public String getName() { return name; }
-    public int getMana() { return mana; }
-    public int getStrength() { return strength; }
-    public int getAgility() { return agility; }
-    public int getDexterity() { return dexterity; }
-    public int getGold() { return Gold; }
-    public int getLevel() { return level; }
-    public int getHp() { return Hp; }
-    public int getXp() { return Xp; }
+    public double getMana() { return mana; }
+    public double getStrength() { return strength; }
+    public double getAgility() { return agility; }
+    public double getDexterity() { return dexterity; }
+    public double getGold() { return Gold; }
+    public double getLevel() { return level; }
+    public double getHp() { return Hp; }
+    public double getXp() { return Xp; }
     public HashMap<String, Object> getInventory() { return Inventory; }
+    public String getType() { return type; }
+    public int getEmpty_hand() { return empty_hand; }
 
 
     public void setName(String name) { this.name = name; }
-    public void setMana(int mana) { this.mana = mana; }
-    public void setStrength(int strength) { this.strength = strength; }
-    public void setAgility(int agility) { this.agility = agility; }
-    public void setDexterity(int dexterity) { this.dexterity = dexterity; }
-    public void setGold(int Gold) { this.Gold = Gold; }
-    public void setLevel(int level) { this.level = level; }
-    public void setHp(int Hp) { this.Hp = Hp; }
-    public void setXp(int Xp) { this.Xp = Xp; }
+    public void setMana(double mana) { this.mana = mana; }
+    public void setStrength(double strength) { this.strength = strength; }
+    public void setAgility(double agility) { this.agility = agility; }
+    public void setDexterity(double dexterity) { this.dexterity = dexterity; }
+    public void setGold(double Gold) { this.Gold = Gold; }
+    public void setLevel(double level) { this.level = level; }
+    public void setHp(double Hp) { this.Hp = Hp; }
+    public void setXp(double Xp) { this.Xp = Xp; }
     public void setInventory(HashMap<String, Object> Inventory) { this.Inventory = Inventory; }
+    public void setType(String type) { this.type = type; }
+    public void setEmpty_hand(int empty_hand) { this.empty_hand = empty_hand; }
+
+    public void levelUp() {
+        this.level++;
+        this.Hp = this.level * 100;
+        this.strength = (double) Math.round(this.strength * 1.1 * 100) / 100;
+        this.agility = (double) Math.round(this.agility * 1.1 * 100) / 100;
+        this.dexterity = (double) Math.round(this.dexterity * 1.05 * 100) / 100;
+        this.mana = (double) Math.round(this.mana * 1.05 * 100) / 100;
+        this.Xp = 0;
+    }
 
     @Override
     public String toString() {
@@ -85,4 +101,26 @@ public class Hero {
                 ", empty_hand=" + empty_hand +
                 '}';
     }
+
+    public JSONObject toJSON() {
+        JSONObject hero = new JSONObject();
+        hero.put("name", this.name);
+        hero.put("mana", this.mana);
+        hero.put("strength", this.strength);
+        hero.put("agility", this.agility);
+        hero.put("dexterity", this.dexterity);
+        hero.put("Gold", this.Gold);
+        hero.put("level", this.level);
+        hero.put("type", this.type);
+        hero.put("Hp", this.Hp);
+        hero.put("Xp", this.Xp);
+        hero.put("Inventory", this.Inventory);
+        hero.put("empty_hand", this.empty_hand);
+        return hero;
+    }
+
+    public void addInventory(String item_name, Object item) {
+        this.Inventory.put(item_name, item);
+    }
+
 }

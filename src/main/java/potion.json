@@ -1,0 +1,50 @@
+[
+  {
+    "name": "Healing_Potion",
+    "cost": 250,
+    "required_level": 1,
+    "attribute_increase": 100,
+    "attribute_affected": ["Health"],
+    "Usage": 2
+  },
+  {
+    "name": "Strength_Potion",
+    "cost": 200,
+    "required_level": 1,
+    "attribute_increase": 75,
+    "attribute_affected": ["Strength"],
+    "Usage": 2
+  },
+  {
+    "name": "Magic_Potion",
+    "cost": 350,
+    "required_level": 2,
+    "attribute_increase": 100,
+    "attribute_affected": ["Mana"],
+    "Usage": 2
+  },
+  {
+    "name": "Luck_Elixir",
+    "cost": 500,
+    "required_level": 4,
+    "attribute_increase": 65,
+    "attribute_affected": ["Agility"],
+    "Usage": 2
+  },
+  {
+    "name": "Mermaid_Tears",
+    "cost": 850,
+    "required_level": 5,
+    "attribute_increase": 100,
+    "attribute_affected": ["Health", "Mana", "Strength", "Agility"],
+    "Usage": 2
+  },
+  {
+    "name": "Ambrosia",
+    "cost": 1000,
+    "required_level": 8,
+    "attribute_increase": 150,
+    "attribute_affected": ["Health", "Mana", "Strength", "Dexterity", "Defense", "Agility"],
+    "Usage": 2
+  }
+]

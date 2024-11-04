@@ -2,10 +2,16 @@ import org.json.JSONArray;
 
 public class JsonArrayHolder {
     private static JsonArrayHolder instance;
-    private JSONArray jsonArray;
+
+    private JSONArray warriorJSONArray;
+    private JSONArray paladinJSONArray;
+    private JSONArray sorcererJSONArray;
+    private JSONArray potionJSONArray;
+    private JSONArray weaponJSONArray;
+    private JSONArray spellJSONArray;
+    private JSONArray CurrentHeroJSONArray;
 
     private JsonArrayHolder() {
-        // Private constructor to prevent instantiation
     }
 
     public static JsonArrayHolder getInstance() {
@@ -15,11 +21,59 @@ public class JsonArrayHolder {
         return instance;
     }
 
-    public JSONArray getJsonArray() {
-        return jsonArray;
+    public JSONArray getWarriorJSONArray() {
+        return warriorJSONArray;
     }
 
-    public void setJsonArray(JSONArray jsonArray) {
-        this.jsonArray = jsonArray;
+    public void setWarriorJSONArray(JSONArray warriorJSONArray) {
+        this.warriorJSONArray = warriorJSONArray;
+    }
+
+    public JSONArray getPaladinJSONArray() {
+        return paladinJSONArray;
+    }
+
+    public void setPaladinJSONArray(JSONArray paladinJSONArray) {
+        this.paladinJSONArray = paladinJSONArray;
+    }
+
+    public JSONArray getSorcererJSONArray() {
+        return sorcererJSONArray;
+    }
+
+    public void setSorcererJSONArray(JSONArray sorcererJSONArray) {
+        this.sorcererJSONArray = sorcererJSONArray;
+    }
+
+    public JSONArray getPotionJSONArray() {
+        return potionJSONArray;
+    }
+
+    public void setPotionJSONArray(JSONArray potionJSONArray) {
+        this.potionJSONArray = potionJSONArray;
+    }
+
+    public JSONArray getWeaponJSONArray() {
+        return weaponJSONArray;
+    }
+
+    public void setWeaponJSONArray(JSONArray weaponJSONArray) {
+        this.weaponJSONArray = weaponJSONArray;
+    }
+
+    public JSONArray getSpellJSONArray() {
+        return spellJSONArray;
+    }
+
+    public void setSpellJSONArray(JSONArray spellJSONArray) {
+        this.spellJSONArray = spellJSONArray;
+    }
+
+    public JSONArray getCurrentHeroJSONArray() {
+        return CurrentHeroJSONArray;
+    }
+
+    public void setCurrentHeroJSONArray(JSONArray currentHeroJSONArray) {
+        CurrentHeroJSONArray = currentHeroJSONArray;
     }
 }

@@ -1,0 +1,62 @@
+[
+  {
+    "name": "Rillifane_Rallathil",
+    "mana": 1300,
+    "strength": 750,
+    "agility": 450,
+    "dexterity": 500,
+    "starting_money": 2500,
+    "starting_level": 9,
+    "type": "sorcerer"
+  },
+  {
+    "name": "Segojan_Earthcaller",
+    "mana": 900,
+    "strength": 800,
+    "agility": 500,
+    "dexterity": 650,
+    "starting_money": 2500,
+    "starting_level": 5,
+    "type": "sorcerer"
+  },
+  {
+    "name": "Reign_Havoc",
+    "mana": 800,
+    "strength": 800,
+    "agility": 800,
+    "dexterity": 800,
+    "starting_money": 2500,
+    "starting_level": 8,
+    "type": "sorcerer"
+  },
+  {
+    "name": "Reverie_Ashels",
+    "mana": 900,
+    "strength": 800,
+    "agility": 700,
+    "dexterity": 400,
+    "starting_money": 2500,
+    "starting_level": 7,
+    "type": "sorcerer"
+  },
+  {
+    "name": "Kalabar",
+    "mana": 800,
+    "strength": 850,
+    "agility": 400,
+    "dexterity": 600,
+    "starting_money": 2500,
+    "starting_level": 6,
+    "type": "sorcerer"
+  },
+  {
+    "name": "Skye_Soar",
+    "mana": 1000,
+    "strength": 700,
+    "agility": 400,
+    "dexterity": 500,
+    "starting_money": 2500,
+    "starting_level": 5,
+    "type": "sorcerer"
+  }
+]

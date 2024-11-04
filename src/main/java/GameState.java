@@ -1,4 +1,7 @@
-package PACKAGE_NAME;
-
-public class GameState {
+enum GameState {
+    IDLE,
+    MOVE,
+    BATTLE,
+    SHOP
 }
+

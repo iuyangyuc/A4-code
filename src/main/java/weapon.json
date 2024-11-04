@@ -1,0 +1,44 @@
+[
+  {
+    "name": "Sword",
+    "cost": 500,
+    "level": 1,
+    "damage": 800,
+    "required_hands": 1
+  },
+  {
+    "name": "Bow",
+    "cost": 300,
+    "level": 2,
+    "damage": 500,
+    "required_hands": 2
+  },
+  {
+    "name": "Scythe",
+    "cost": 1000,
+    "level": 6,
+    "damage": 1100,
+    "required_hands": 2
+  },
+  {
+    "name": "Axe",
+    "cost": 550,
+    "level": 5,
+    "damage": 850,
+    "required_hands": 1
+  },
+  {
+    "name": "TSwords",
+    "cost": 1400,
+    "level": 8,
+    "damage": 1600,
+    "required_hands": 2
+  },
+  {
+    "name": "Dagger",
+    "cost": 200,
+    "level": 1,
+    "damage": 250,
+    "required_hands": 1
+  }
+]

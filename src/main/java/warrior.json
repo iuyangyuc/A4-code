@@ -1,0 +1,62 @@
+[
+  {
+    "name": "Gaerdal_Ironhand",
+    "mana": 100,
+    "strength": 700,
+    "agility": 500,
+    "dexterity": 600,
+    "starting_money": 1354,
+    "starting_level": 7,
+    "type": "warrior"
+  },
+  {
+    "name": "Sehanine_Monnbow",
+    "mana": 600,
+    "strength": 700,
+    "agility": 800,
+    "dexterity": 500,
+    "starting_money": 2500,
+    "starting_level": 8,
+    "type": "warrior"
+  },
+  {
+    "name": "Muamman_Duathall",
+    "mana": 300,
+    "strength": 900,
+    "agility": 500,
+    "dexterity": 750,
+    "starting_money": 2546,
+    "starting_level": 6,
+    "type": "warrior"
+  },
+  {
+    "name": "Flandal_Steelskin",
+    "mana": 200,
+    "strength": 750,
+    "agility": 650,
+    "dexterity": 700,
+    "starting_money": 2500,
+    "starting_level": 7,
+    "type": "warrior"
+  },
+  {
+    "name": "Undefeated_Yoj",
+    "mana": 400,
+    "strength": 800,
+    "agility": 400,
+    "dexterity": 700,
+    "starting_money": 2500,
+    "starting_level": 7,
+    "type": "warrior"
+  },
+  {
+    "name": "Eunoia_Cyn",
+    "mana": 400,
+    "strength": 700,
+    "agility": 800,
+    "dexterity": 600,
+    "starting_money": 2500,
+    "starting_level": 6,
+    "type": "warrior"
+  }
+]

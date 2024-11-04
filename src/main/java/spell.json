@@ -1,0 +1,120 @@
+[
+    {
+      "name": "Flame_Tornado",
+      "cost": 700,
+      "required_level": 10,
+      "damage": 850,
+      "mana_cost": 300,
+      "type": "Fire",
+      "Usage": 2
+    },
+    {
+      "name": "Breath_of_Fire",
+      "cost": 350,
+      "required_level": 1,
+      "damage": 450,
+      "mana_cost": 100,
+      "type": "Fire",
+      "Usage": 2
+    },
+    {
+      "name": "Heat_Wave",
+      "cost": 450,
+      "required_level": 2,
+      "damage": 600,
+      "mana_cost": 150,
+      "type": "Fire",
+      "Usage": 2
+    },
+    {
+      "name": "Lava_Comet",
+      "cost": 800,
+      "required_level": 7,
+      "damage": 1000,
+      "mana_cost": 550,
+      "type": "Fire",
+      "Usage": 2
+    },
+    {
+      "name": "Hell_Storm",
+      "cost": 600,
+      "required_level": 3,
+      "damage": 950,
+      "mana_cost": 600,
+      "type": "Fire",
+      "Usage": 2
+    },
+    {
+      "name": "Snow_Cannon",
+      "cost": 500,
+      "required_level": 10,
+      "damage": 650,
+      "mana_cost": 250,
+      "type": "Ice",
+      "Usage": 2
+    },
+    {
+      "name": "Ice_Blade",
+      "cost": 250,
+      "required_level": 1,
+      "damage": 450,
+      "mana_cost": 100,
+      "type": "Ice",
+      "Usage": 2
+    },
+    {
+      "name": "Frost_Blizzard",
+      "cost": 750,
+      "required_level": 5,
+      "damage": 850,
+      "mana_cost": 350,
+      "type": "Ice",
+      "Usage": 2
+    },
+    {
+      "name": "Arctic_Storm",
+      "cost": 700,
+      "required_level": 6,
+      "damage": 800,
+      "mana_cost": 300,
+      "type": "Ice",
+      "Usage": 2
+    },
+    {
+      "name": "Lightning_Dagger",
+      "cost": 400,
+      "required_level": 10,
+      "damage": 500,
+      "mana_cost": 150,
+      "type": "Lightning",
+      "Usage": 2
+    },
+    {
+      "name": "Thunder_Blast",
+      "cost": 750,
+      "required_level": 4,
+      "damage": 950,
+      "mana_cost": 400,
+      "type": "Lightning",
+      "Usage": 2
+    },
+    {
+      "name": "Electric_Arrows",
+      "cost": 550,
+      "required_level": 5,
+      "damage": 650,
+      "mana_cost": 200,
+      "type": "Lightning",
+      "Usage": 2
+    },
+    {
+      "name": "Spark_Needles",
+      "cost": 500,
+      "required_level": 2,
+      "damage": 600,
+      "mana_cost": 200,
+      "type": "Lightning",
+      "Usage": 2
+    }
+]
+

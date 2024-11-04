@@ -1,34 +1,62 @@
-{
-  "armor": [
-    {
-      "name": "Platinum_Shield",
-      "cost": 150,
-      "requiredLevel": 1,
-      "damageReduction": 200
-    },
-    {
-      "name": "Breastplate",
-      "cost": 350,
-      "requiredLevel": 3,
-      "damageReduction": 600
-    },
-    {
-      "name": "Full_Body_Armor",
-      "cost": 1000,
-      "requiredLevel": 8,
-      "damageReduction": 1100
-    },
-    {
-      "name": "Wizard_Shield",
-      "cost": 1200,
-      "requiredLevel": 10,
-      "damageReduction": 1500
-    },
-    {
-      "name": "Guardian_Angel",
-      "cost": 1000,
-      "requiredLevel": 10,
-      "damageReduction": 1000
-    }
-  ]
-}
+[
+  {
+    "name": "Parzival",
+    "mana": 300,
+    "strength": 750,
+    "agility": 650,
+    "dexterity": 700,
+    "starting_money": 2500,
+    "starting_level": 7,
+    "type": "paladins"
+  },
+  {
+    "name": "Sehanine_Moonbow",
+    "mana": 300,
+    "strength": 750,
+    "agility": 700,
+    "dexterity": 700,
+    "starting_money": 2500,
+    "starting_level": 7,
+    "type": "paladins"
+  },
+  {
+    "name": "Skoraeus_Stonebones",
+    "mana": 250,
+    "strength": 650,
+    "agility": 600,
+    "dexterity": 350,
+    "starting_money": 2500,
+    "starting_level": 4,
+    "type": "paladins"
+  },
+  {
+    "name": "Garl_Glittergold",
+    "mana": 100,
+    "strength": 600,
+    "agility": 500,
+    "dexterity": 400,
+    "starting_money": 2500,
+    "starting_level": 5,
+    "type": "paladins"
+  },
+  {
+    "name": "Amaryllis_Astra",
+    "mana": 500,
+    "strength": 500,
+    "agility": 500,
+    "dexterity": 500,
+    "starting_money": 2500,
+    "starting_level": 5,
+    "type": "paladins"
+  },
+  {
+    "name": "Caliber_Heist",
+    "mana": 400,
+    "strength": 400,
+    "agility": 400,
+    "dexterity": 400,
+    "starting_money": 2500,
+    "starting_level": 8,
+    "type": "paladins"
+  }
+]
