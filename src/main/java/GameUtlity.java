@@ -106,4 +106,27 @@ public class GameUtlity {
         }
         return spellInfo;
     }
+
+    public void removeUsedItem(){
+        HeroRegistry heroRegistry = HeroRegistry.getInstance();
+        for(HashMap.Entry<String, Hero> entry : heroRegistry.getHeroMap().entrySet()){
+            Hero hero = entry.getValue();
+            HashMap<String, Object> items = hero.getInventory();
+            for(HashMap.Entry<String, Object> item : items.entrySet()){
+                if(item.getValue() instanceof Potion){
+                    Potion potion = (Potion) item.getValue();
+                    if(potion.getUsage() == 0){
+                        items.remove(item.getKey());
+                    }
+                }
+                if(item.getValue() instanceof Spell){
+                    Spell spell = (Spell) item.getValue();
+                    if(spell.getUsage() == 0){
+                        items.remove(item.getKey());
+                    }
+                }
+            }
+        }
+    }
+
 }

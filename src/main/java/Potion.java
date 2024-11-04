@@ -67,6 +67,14 @@ public class Potion {
         this.attribute = attribute;
     }
 
+    public int getUsage() {
+        return usage;
+    }
+
+    public void setUsage(int usage) {
+        this.usage = usage;
+    }
+
     public String toString() {
         return "Name: " + name + ", Cost: " + cost + ", Required Level: " + requiredLevel + ", Increase Value: " + increaseValue + ", Attribute: " + attribute + ", Usage: " + usage;
     }

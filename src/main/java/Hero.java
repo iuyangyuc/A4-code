@@ -30,4 +30,6 @@ public interface Hero {
     String getType();
     int getEmpty_hand();
     void addInventory(String item_name, Object item);
+    void removeInventory(String item_name);
+    void EditWeapon(Weapon weapon, int hand, boolean add);
 }

@@ -106,4 +106,24 @@ public class Sorcerer implements Hero {
         this.Inventory.put(item_name, item);
     }
 
+    public void removeInventory(String item_name) {
+        this.Inventory.remove(item_name);
+    }
+
+    public void EditWeapon(Weapon weapon, int hand, boolean add) {
+        if(add) {
+            this.empty_hand -= hand;
+            this.strength += weapon.getDamage();
+            if(hand == 2) {
+                this.strength += weapon.getDamage() * 0.5;
+            }
+        } else {
+            this.empty_hand += hand;
+            this.strength -= weapon.getDamage();
+            if(hand == 2) {
+                this.strength -= weapon.getDamage() * 0.5;
+            }
+        }
+    }
+
 }

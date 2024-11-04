@@ -16,17 +16,13 @@ public class Unit {
                 accessible = true;
                 type = 0;
                 break;
-            case ATTACK:
+            case MARKET:
                 accessible = true;
                 type = 1;
                 break;
-            case MARKET:
-                accessible = true;
-                type = 2;
-                break;
             case BLOCK:
                 accessible = false;
-                type = 3;
+                type = 2;
                 break;
         }
     }
@@ -61,5 +57,18 @@ public class Unit {
 
     public void setY(int y) {
         this.y = y;
+    }
+
+    public String getSymbol() {
+        switch (type) {
+            case 0:
+                return " ";
+            case 1:
+                return "M";
+            case 2:
+                return "X";
+            default:
+                return " ";
+        }
     }
 }
