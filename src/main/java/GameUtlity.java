@@ -11,6 +11,7 @@ import java.util.Random;
 public class GameUtlity {
 
     HeroRegistry heroRegistry = HeroRegistry.getInstance();
+    MonsterRegistry monsterRegistry = MonsterRegistry.getInstance();
 
     public JSONArray isHeroNameValid(String name) {
         JSONArray pjsonArray = JsonArrayHolder.getInstance().getPaladinJSONArray();
@@ -190,6 +191,19 @@ public class GameUtlity {
         return heroRegistry.getHeroMap().keySet().toArray()[heroChoice-1].toString();
     }
 
+    public String selectMonster() {
+        int monsterChoice = 0;
+        System.out.println("Select a monster:");
+        MonsterRegistry monsterRegistry = MonsterRegistry.getInstance();
+        int i = 1;
+        for(HashMap.Entry<String, Monster> entry : monsterRegistry.getMonsterMap().entrySet()){
+            System.out.println(i + ". " + entry.getValue());
+            i++;
+        }
+        monsterChoice = takeValidInput(1, i-1);
+        return monsterRegistry.getMonsterMap().keySet().toArray()[monsterChoice-1].toString();
+    }
+
     public void createHeroParty(int heroNumber) {
         HeroFactory heroFactory = new PaladinFactory();
         HeroFactory heroFactory1 = new SorcererFactory();
@@ -268,6 +282,27 @@ public class GameUtlity {
         }
     }
 
+    public void displayEquippedItems(String hero_name){
+        Hero hero = heroRegistry.getHero(hero_name);
+        for(String key : hero.getEquipped().keySet()){
+            System.out.println(key + " : " + hero.getEquipped().get(key));
+        }
+    }
+
+    public void displayAllHeroInfo(){
+        HeroRegistry heroRegistry = HeroRegistry.getInstance();
+        for(HashMap.Entry<String, Hero> entry : heroRegistry.getHeroMap().entrySet()){
+            System.out.println(entry.getValue());
+        }
+    }
+
+    public void displayAllMonsterInfo(){
+        MonsterRegistry monsterRegistry = MonsterRegistry.getInstance();
+        for(HashMap.Entry<String, Monster> entry : monsterRegistry.getMonsterMap().entrySet()){
+            System.out.println(entry.getValue());
+        }
+    }
+
     public void InitializeGame() {
         JsonLoader.loadWarriorJSONArray();
         JsonLoader.loadSorcererJSONArray();
@@ -282,6 +317,4 @@ public class GameUtlity {
         Board board = Board.getInstance();
         board.improvedSetBoard(8);
     }
-
-
 }
