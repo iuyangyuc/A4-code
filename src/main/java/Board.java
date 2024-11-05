@@ -80,4 +80,8 @@ public class Board {
         }
     }
 
+    public HashMap<UnitKey, Unit> getBoard() {
+        return board;
+    }
+
 }

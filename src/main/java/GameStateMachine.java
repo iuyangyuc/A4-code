@@ -27,7 +27,6 @@ public class GameStateMachine {
      */
     public void startExploring() {
         if (currentState == GameState.IDLE) {
-            currentState = GameState.MOVE;
             gameUtlity.InitializeGame();
             System.out.println("Welcome to the game.");
             System.out.println("Enter number of heroes you want to create:");
@@ -38,10 +37,158 @@ public class GameStateMachine {
         }
     }
 
-    public void stopMoving() {
-        if (currentState == GameState.MOVE) {
+    public void Moving() {
+        if (currentState == GameState.IDLE) {
+            currentState = GameState.MOVE;
             //TODO: move logic
-            System.out.println("Transitioned to IDLE: Player stops moving.");
+            Board board = Board.getInstance();
+            int x = 0;
+            int y = 0;
+            Board.getInstance().getBoard().get(new UnitKey(x, y)).setCurrent(true);
+            System.out.println("X: Blocked Unit; M: Market Unit");
+            board.displayBoard();
+            while (true){
+                System.out.println("Enter the action you want to take:");
+                System.out.println("1. Up(W)");
+                System.out.println("2. Down(S)");
+                System.out.println("3. Left(A)");
+                System.out.println("4. Right(D)");
+                System.out.println("5. Quit Game(Q)");
+                System.out.println("6. Display Hero Info(I)");
+                String action = Main.SCANNER.next().toLowerCase();
+                switch (action){
+                    case "w":
+                        if(isInBoard(x - 1, y)){
+                            if (board.getBoard().get(new UnitKey(x - 1, y)).getType() == UnitEvent.EMPTY) {
+                                Random random = new Random();
+                                int randomNum = random.nextInt(10);
+                                if (randomNum <= 4) {
+                                    System.out.println("Encounter enemies.");
+                                    //encounterEnemy();
+                                }
+                                System.out.println("Moved up.");
+                            }
+                            else if (board.getBoard().get(new UnitKey(x - 1, y)).getType() == UnitEvent.MARKET) {
+                                    //enterShop();
+                                    System.out.println("Enter the shop.");
+                            }
+                            else if (board.getBoard().get(new UnitKey(x - 1, y)).getType() == UnitEvent.BLOCK) {
+                                    System.out.println("Cannot move up. Blocked unit.");
+                                    board.displayBoard();
+                                    break;
+                            }
+                            Board.getInstance().getBoard().get(new UnitKey(x, y)).setCurrent(false);
+                            x--;
+                            Board.getInstance().getBoard().get(new UnitKey(x, y)).setCurrent(true);
+                        }
+                        else{
+                            System.out.println("Invalid move. Please try again.");
+                        }
+                        board.displayBoard();
+                        break;
+
+                    case "s":
+                        if(isInBoard(x + 1, y)){
+                            if (board.getBoard().get(new UnitKey(x + 1, y)).getType() == UnitEvent.EMPTY) {
+                                Random random = new Random();
+                                int randomNum = random.nextInt(10);
+                                if (randomNum <= 4) {
+                                    System.out.println("Encounter enemies.");
+                                    //encounterEnemy();
+                                }
+                                System.out.println("Moved down.");
+
+                            }
+                            else if (board.getBoard().get(new UnitKey(x + 1, y)).getType() == UnitEvent.MARKET) {
+                                System.out.println("Enter the shop.");
+                                //enterShop();
+                            }
+                            else if (board.getBoard().get(new UnitKey(x + 1, y)).getType() == UnitEvent.BLOCK) {
+                                System.out.println("Cannot move down. Blocked unit.");
+                                board.displayBoard();
+                                break;
+                            }
+                            Board.getInstance().getBoard().get(new UnitKey(x, y)).setCurrent(false);
+                            x++;
+                            Board.getInstance().getBoard().get(new UnitKey(x, y)).setCurrent(true);
+                        }
+                        else{
+                            System.out.println("Invalid move. Please try again.");
+                        }
+                        board.displayBoard();
+                        break;
+
+                    case "a":
+                        if(isInBoard(x, y - 1)){
+                            if (board.getBoard().get(new UnitKey(x, y - 1)).getType() == UnitEvent.EMPTY) {
+                                Random random = new Random();
+                                int randomNum = random.nextInt(10);
+                                if (randomNum <= 4) {
+                                    System.out.println("Encounter enemies.");
+                                    //encounterEnemy();
+                                }
+                                System.out.println("Moved left.");
+                            }
+                            else if (board.getBoard().get(new UnitKey(x, y - 1)).getType() == UnitEvent.MARKET) {
+                                System.out.println("Enter the shop.");
+                                //enterShop();
+                            }
+                            else if (board.getBoard().get(new UnitKey(x, y - 1)).getType() == UnitEvent.BLOCK) {
+                                System.out.println("Cannot move left. Blocked unit.");
+                                board.displayBoard();
+                                break;
+                            }
+                            Board.getInstance().getBoard().get(new UnitKey(x, y)).setCurrent(false);
+                            y--;
+                            Board.getInstance().getBoard().get(new UnitKey(x, y)).setCurrent(true);
+                        }
+                        else{
+                            System.out.println("Invalid move. Please try again.");
+                        }
+                        board.displayBoard();
+                        break;
+
+                    case "d":
+                        if(isInBoard(x, y + 1)){
+                            if (board.getBoard().get(new UnitKey(x, y + 1)).getType() == UnitEvent.EMPTY) {
+                                Random random = new Random();
+                                int randomNum = random.nextInt(10);
+                                if (randomNum <= 4) {
+                                    System.out.println("Encounter enemies.");
+                                    //encounterEnemy();
+                                }
+                                System.out.println("Moved right.");
+                            }
+                            else if (board.getBoard().get(new UnitKey(x, y + 1)).getType() == UnitEvent.MARKET) {
+                                System.out.println("Enter the shop.");
+                                //enterShop();
+                            }
+                            else if (board.getBoard().get(new UnitKey(x, y + 1)).getType() == UnitEvent.BLOCK) {
+                                System.out.println("Cannot move right. Blocked unit.");
+                                board.displayBoard();
+                                break;
+                            }
+                            Board.getInstance().getBoard().get(new UnitKey(x, y)).setCurrent(false);
+                            y++;
+                            Board.getInstance().getBoard().get(new UnitKey(x, y)).setCurrent(true);
+                        }
+                        else{
+                            System.out.println("Invalid move. Please try again.");
+                        }
+                        board.displayBoard();
+                        break;
+
+                    case "q":
+                        System.out.println("Quitting game.");
+                        exit(0);
+                        break;
+
+                    case "i":
+                        gameUtlity.displayAllHeroInfo();
+                        break;
+                }
+            }
+
         } else {
             System.out.println("Invalid action: Can only stop moving from MOVE state.");
         }
@@ -234,6 +381,7 @@ public class GameStateMachine {
                     break;
                 }
             }
+            exitShop();
         } else {
             System.out.println("Invalid action: Can only enter shop from MOVE state.");
         }
@@ -259,6 +407,10 @@ public class GameStateMachine {
 
     public void setCurrentState(GameState currentState) {
         this.currentState = currentState;
+    }
+
+    private boolean isInBoard(int x, int y){
+        return x >= 0 && x < 7 && y >= 0 && y < 7;
     }
 }
 

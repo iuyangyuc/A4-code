@@ -15,9 +15,6 @@ public class Main {
         HeroRegistry heroRegistry = HeroRegistry.getInstance();
         Board board = Board.getInstance();
 
-        gameUtlity.InitializeGame();
-        board.displayBoard();
-
         gameStateMachine.startExploring();
 
         System.out.println("Hero Registry:");
@@ -25,7 +22,7 @@ public class Main {
             System.out.println(entry.getValue());
         }
 
-        gameStateMachine.enterShop();
+        gameStateMachine.Moving();
 
     }
 }

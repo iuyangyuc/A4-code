@@ -1,6 +1,6 @@
 public class Unit {
 
-    private boolean accessible;
+    private boolean current;
     private UnitEvent type;
     private int x;
     private int y;
@@ -14,12 +14,12 @@ public class Unit {
         this.type = event;
     }
 
-    public boolean isAccessible() {
-        return accessible;
+    public boolean isCurrent() {
+        return current;
     }
 
-    public void setAccessible(boolean accessible) {
-        this.accessible = accessible;
+    public void setCurrent(boolean current) {
+        this.current = current;
     }
 
     public UnitEvent getType() {
@@ -49,11 +49,23 @@ public class Unit {
     public String getSymbol() {
         switch (type) {
             case EMPTY:
-                return " ";
+                if(current) {
+                    return "P";
+                } else {
+                    return " ";
+                }
             case MARKET:
-                return "M";
+                if (current) {
+                    return "P";
+                } else {
+                    return "M";
+                }
             case BLOCK:
-                return "X";
+                if(current) {
+                    return "P";
+                } else {
+                    return "X";
+                }
             default:
                 return " ";
         }
