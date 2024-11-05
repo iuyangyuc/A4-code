@@ -57,23 +57,36 @@ public class GameStateMachine {
             Market market = new Market();
             market.createRandomMarket();
             heroChoice = gameUtlity.selectHero();
-            market.displayMarket();
             while (true) {
                 System.out.println("1. Buy Item");
                 System.out.println("2. Sell Item");
                 System.out.println("3. Exit Shop");
                 int choice = gameUtlity.takeValidInput(1, 3);
                 if (choice == 1) {
+                    if (market.getMarket().isEmpty()) {
+                        System.out.println("No items to buy.");
+                        continue;
+                    }
                     System.out.println("Enter the item name you want to buy:");
+                    market.displayMarket();
                     String item_name = Main.SCANNER.next();
                     while (!market.getMarket().containsKey(item_name)) {
                         System.out.println("Invalid item name. Please enter a valid item name:");
                         item_name = Main.SCANNER.next();
                     }
+                    if(heroRegistry.getHero(heroChoice).getGold() < market.getItemCost(item_name)){
+                        System.out.println("Not enough gold to buy the item.");
+                        continue;
+                    }
                     market.sellItem(item_name, heroChoice);
                     market.displayMarket();
                 } else if (choice == 2) {
+                    if(heroRegistry.getHero(heroChoice).getInventory().isEmpty()){
+                        System.out.println("No items to sell.");
+                        continue;
+                    }
                     System.out.println("Enter the item name you want to sell:");
+                    gameUtlity.displayInventory(heroChoice);
                     String item_name = Main.SCANNER.next();
                     while (!heroRegistry.getHero(heroChoice).getInventory().containsKey(item_name)) {
                         System.out.println("Invalid item name. Please enter a valid item name:");

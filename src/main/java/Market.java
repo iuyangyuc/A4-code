@@ -81,24 +81,6 @@ public class Market {
         createArmorList();
         Random random = new Random();
 
-        //print all the items in the market
-        for (String key : potions.keySet()) {
-            System.out.println(key + " : " + potions.get(key));
-        }
-        System.out.println();
-        for (String key : weapons.keySet()) {
-            System.out.println(key + " : " + weapons.get(key));
-        }
-        System.out.println();
-        for (String key : spells.keySet()) {
-            System.out.println(key + " : " + spells.get(key));
-        }
-        System.out.println();
-        for (String key : armors.keySet()) {
-            System.out.println(key + " : " + armors.get(key));
-        }
-        System.out.println();
-
         if (!potions.isEmpty()) {
             List<String> potionKeys = new ArrayList<>(potions.keySet());
             String randomPotionKey = potionKeys.get(random.nextInt(potionKeys.size()));
@@ -166,13 +148,18 @@ public class Market {
         }
     }
 
-    public void displayInventory(String hero_name){
-        Hero hero = heroRegistry.getHero(hero_name);
-        for (String key : hero.getInventory().keySet()) {
-            System.out.println(key + " : " + hero.getInventory().get(key));
+    public int getItemCost(String item_name){
+        if(market.get(item_name) instanceof Potion){
+            return ((Potion) market.get(item_name)).getCost();
         }
+        else if(market.get(item_name) instanceof Weapon){
+            return ((Weapon) market.get(item_name)).getCost();
+        }
+        else if(market.get(item_name) instanceof Spell){
+            return ((Spell) market.get(item_name)).getCost();
+        }
+        return 0;
     }
-
 
 
     public HashMap<String, Potion> getPotions() {

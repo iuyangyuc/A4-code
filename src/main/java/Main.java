@@ -20,7 +20,6 @@ public class Main {
 
         gameStateMachine.startExploring();
 
-
         System.out.println("Hero Registry:");
         for(HashMap.Entry<String, Hero> entry : heroRegistry.getHeroMap().entrySet()){
             System.out.println(entry.getValue());

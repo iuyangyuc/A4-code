@@ -9,6 +9,8 @@ import java.util.HashMap;
 
 public class GameUtlity {
 
+    HeroRegistry heroRegistry = HeroRegistry.getInstance();
+
     public JSONArray isHeroNameValid(String name) {
         JSONArray pjsonArray = JsonArrayHolder.getInstance().getPaladinJSONArray();
         JSONArray wjsonArray = JsonArrayHolder.getInstance().getWarriorJSONArray();
@@ -209,7 +211,12 @@ public class GameUtlity {
         return Double.parseDouble(valueString);
     }
 
-
+    public void displayInventory(String hero_name){
+        Hero hero = heroRegistry.getHero(hero_name);
+        for (String key : hero.getInventory().keySet()) {
+            System.out.println(key + " : " + hero.getInventory().get(key));
+        }
+    }
 
     public void InitializeGame() {
         JsonLoader.loadWarriorJSONArray();
