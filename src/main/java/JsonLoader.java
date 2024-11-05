@@ -70,11 +70,11 @@ public class JsonLoader {
         }
     }
 
-    public static void loadCurrentHeroJSONArray() {
+    public static void loadArmorJSONArray() {
         try {
-            String content = new String(Files.readAllBytes(Paths.get(pathPrefix + "current.json")));
+            String content = new String(Files.readAllBytes(Paths.get(pathPrefix + "armor.json")));
             JSONArray jsonArray = new JSONArray(content);
-            JsonArrayHolder.getInstance().setCurrentHeroJSONArray(jsonArray);
+            JsonArrayHolder.getInstance().setArmorJSONArray(jsonArray);
         } catch (Exception e) {
             e.printStackTrace();
         }

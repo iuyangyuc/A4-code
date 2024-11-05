@@ -17,6 +17,7 @@ class JsonLoaderTest {
         JsonLoader.loadPotionJSONArray();
         JsonLoader.loadWeaponJSONArray();
         JsonLoader.loadSpellJSONArray();
+        JsonLoader.loadArmorJSONArray();
     }
 
     @Test
@@ -190,6 +191,12 @@ class JsonLoaderTest {
 //        market.createRandomMarket();
 //        System.out.println(market.getMarket());
 //    }
+
+    @Test
+    void createMarketTest() {
+        Market market = new Market();
+        market.createRandomMarket();
+    }
 
     @Test
     void sellItemTest() {

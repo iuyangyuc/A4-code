@@ -76,7 +76,7 @@ public class Ice implements Spell {
     }
 
     public String toString() {
-        return "Name: " + name + ", Cost: " + cost + ", Required Level: " + requiredLevel + ", Damage: " + damage + ", Mana Cost: " + manaCost;
+        return "Spell{Name: " + name + ", Cost: " + cost + ", Required Level: " + requiredLevel + ", Damage: " + damage + ", Mana Cost: " + manaCost + ", Usage: " + usage + "}";
     }
 
     public String getEffectField() {

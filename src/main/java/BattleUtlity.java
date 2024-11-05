@@ -1,0 +1,2 @@
+public class BattleUtlity {
+}

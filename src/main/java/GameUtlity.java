@@ -101,10 +101,23 @@ public class GameUtlity {
                 spellInfo.add(jsonArray.getJSONObject(i).get("damage"));
                 spellInfo.add(jsonArray.getJSONObject(i).get("mana_cost"));
                 spellInfo.add(jsonArray.getJSONObject(i).get("type"));
-                spellInfo.add(jsonArray.getJSONObject(i).get("usage"));
+                spellInfo.add(jsonArray.getJSONObject(i).get("Usage"));
             }
         }
         return spellInfo;
+    }
+
+    public ArrayList<Object> getArmorInfo(String name, JSONArray jsonArray){
+        ArrayList<Object> armorInfo = new ArrayList<>();
+        for (int i = 0; i < jsonArray.length(); i++) {
+            if (jsonArray.getJSONObject(i).getString("name").equals(name)) {
+                armorInfo.add(jsonArray.getJSONObject(i).get("name"));
+                armorInfo.add(jsonArray.getJSONObject(i).get("cost"));
+                armorInfo.add(jsonArray.getJSONObject(i).get("required_level"));
+                armorInfo.add(jsonArray.getJSONObject(i).get("damage_reduction"));
+            }
+        }
+        return armorInfo;
     }
 
     public void removeUsedItem(){
@@ -205,6 +218,7 @@ public class GameUtlity {
         JsonLoader.loadPotionJSONArray();
         JsonLoader.loadWeaponJSONArray();
         JsonLoader.loadSpellJSONArray();
+        JsonLoader.loadArmorJSONArray();
         Board board = Board.getInstance();
         board.improvedSetBoard(8);
     }

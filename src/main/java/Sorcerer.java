@@ -125,4 +125,12 @@ public class Sorcerer implements Hero {
         }
     }
 
+    public void EditArmor(Armor armor, boolean add) {
+        if(add) {
+            this.agility += armor.getDefense();
+        } else {
+            this.agility -= armor.getDefense();
+        }
+    }
+
 }

@@ -9,7 +9,7 @@ public class JsonArrayHolder {
     private JSONArray potionJSONArray;
     private JSONArray weaponJSONArray;
     private JSONArray spellJSONArray;
-    private JSONArray CurrentHeroJSONArray;
+    private JSONArray armorJSONArray;
 
     private JsonArrayHolder() {
     }
@@ -69,11 +69,11 @@ public class JsonArrayHolder {
         this.spellJSONArray = spellJSONArray;
     }
 
-    public JSONArray getCurrentHeroJSONArray() {
-        return CurrentHeroJSONArray;
+    public JSONArray getArmorJSONArray() {
+        return armorJSONArray;
     }
 
-    public void setCurrentHeroJSONArray(JSONArray currentHeroJSONArray) {
-        CurrentHeroJSONArray = currentHeroJSONArray;
+    public void setArmorJSONArray(JSONArray armorJSONArray) {
+        this.armorJSONArray = armorJSONArray;
     }
 }

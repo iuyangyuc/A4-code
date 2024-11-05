@@ -1,0 +1,33 @@
+[
+  {
+    "name": "Platinum_Shield",
+    "cost": 150,
+    "required_level": 1,
+    "damage_reduction": 200
+  },
+  {
+    "name": "Breastplate",
+    "cost": 350,
+    "required_level": 3,
+    "damage_reduction": 600
+  },
+  {
+    "name": "Full_Body_Armor",
+    "cost": 1000,
+    "required_level": 8,
+    "damage_reduction": 1100
+  },
+  {
+    "name": "Wizard_Shield",
+    "cost": 1200,
+    "required_level": 10,
+    "damage_reduction": 1500
+  },
+  {
+    "name": "Guardian_Angel",
+    "cost": 1000,
+    "required_level": 10,
+    "damage_reduction": 1000
+  }
+]
+

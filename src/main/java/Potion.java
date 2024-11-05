@@ -76,7 +76,7 @@ public class Potion {
     }
 
     public String toString() {
-        return "Name: " + name + ", Cost: " + cost + ", Required Level: " + requiredLevel + ", Increase Value: " + increaseValue + ", Attribute: " + attribute + ", Usage: " + usage;
+        return "Potion{Name: " + name + ", Cost: " + cost + ", Required Level: " + requiredLevel + ", Increase Value: " + increaseValue + ", Attribute: " + attribute + ", Usage: " + usage + "}";
     }
 
 }

@@ -66,7 +66,7 @@ public class Weapon {
 
     @Override
     public String toString() {
-        return "{name='" + name + '\'' +
+        return "Weapon{name='" + name + '\'' +
                 ", cost=" + cost +
                 ", requiredLevel=" + requiredLevel +
                 ", damage=" + damage +

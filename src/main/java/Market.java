@@ -10,11 +10,14 @@ public class Market {
     private HashMap<String, Potion> potions = new HashMap<String, Potion>();
     private HashMap<String, Weapon> weapons = new HashMap<String, Weapon>();
     private HashMap<String, Spell> spells = new HashMap<String, Spell>();
+    private HashMap<String, Armor> armors = new HashMap<String, Armor>();
     private HashMap<String, Object> market = new HashMap<String, Object>();
     JSONArray potionsArray = JsonArrayHolder.getInstance().getPotionJSONArray();
     JSONArray weaponsArray = JsonArrayHolder.getInstance().getWeaponJSONArray();
     JSONArray spellsArray = JsonArrayHolder.getInstance().getSpellJSONArray();
+    JSONArray armorsArray = JsonArrayHolder.getInstance().getArmorJSONArray();
     HeroRegistry heroRegistry = HeroRegistry.getInstance();
+    GameUtlity gameUtility = new GameUtlity();
 
     private void createPotionList() {
         int l = potionsArray.length();
@@ -37,40 +40,37 @@ public class Market {
     private void createWeaponList() {
         int l = weaponsArray.length();
         for (int i = 0; i < l; i++) {
-            ArrayList<Object> attributes = new ArrayList<>();
-            String name = weaponsArray.getJSONObject(i).getString("name");
-            int cost = weaponsArray.getJSONObject(i).getInt("cost");
-            int level = weaponsArray.getJSONObject(i).getInt("level");
-            int damage = weaponsArray.getJSONObject(i).getInt("damage");
-            int requiredHands = weaponsArray.getJSONObject(i).getInt("required_hands");
-            Weapon weapon = new Weapon(name, cost, level, damage, requiredHands);
-            weapons.put(name, weapon);
+            ArrayList<Object> attributes = gameUtility.getWeaponInfo(weaponsArray.getJSONObject(i).getString("name"), weaponsArray);
+            Weapon weapon = new Weapon(attributes);
+            weapons.put(attributes.get(0).toString(), weapon);
         }
     }
 
     private void createSpellList() {
         int l = spellsArray.length();
         for (int i = 0; i < l; i++) {
-            ArrayList<Object> attributes = new ArrayList<>();
-            String name = spellsArray.getJSONObject(i).getString("name");
-            int cost = spellsArray.getJSONObject(i).getInt("cost");
-            int level = spellsArray.getJSONObject(i).getInt("required_level");
-            int damage = spellsArray.getJSONObject(i).getInt("damage");
-            int manaCost = spellsArray.getJSONObject(i).getInt("mana_cost");
-            String type = spellsArray.getJSONObject(i).getString("type");
-            int usage = spellsArray.getJSONObject(i).getInt("Usage");
-            if(type.equals("Ice")){
-                Ice spell = new Ice(name, cost, level, damage, manaCost, usage);
-                spells.put(name, spell);
+            ArrayList<Object> attributes = gameUtility.getSpellInfo(spellsArray.getJSONObject(i).getString("name"), spellsArray);
+            if(attributes.get(5).equals("Ice")){
+                Ice spell = new Ice(attributes);
+                spells.put(attributes.get(0).toString(), spell);
             }
-            else if(type.equals("Fire")){
-                Fire spell = new Fire(name, cost, level, damage, manaCost, usage);
-                spells.put(name, spell);
+            else if(attributes.get(5).equals("Fire")){
+                Fire spell = new Fire(attributes);
+                spells.put(attributes.get(0).toString(), spell);
             }
-            else if(type.equals("Lightning")){
-                Lightning spell = new Lightning(name, cost, level, damage, manaCost, usage);
-                spells.put(name, spell);
+            else if(attributes.get(5).equals("Lightning")){
+                Lightning spell = new Lightning(attributes);
+                spells.put(attributes.get(0).toString(), spell);
             }
+        }
+    }
+
+    private void createArmorList() {
+        int l = armorsArray.length();
+        for (int i = 0; i < l; i++) {
+            ArrayList<Object> attributes = gameUtility.getArmorInfo(armorsArray.getJSONObject(i).getString("name"), armorsArray);
+            Armor armor = new Armor(attributes);
+            armors.put(attributes.get(0).toString(), armor);
         }
     }
 
@@ -78,7 +78,26 @@ public class Market {
         createPotionList();
         createWeaponList();
         createSpellList();
+        createArmorList();
         Random random = new Random();
+
+        //print all the items in the market
+        for (String key : potions.keySet()) {
+            System.out.println(key + " : " + potions.get(key));
+        }
+        System.out.println();
+        for (String key : weapons.keySet()) {
+            System.out.println(key + " : " + weapons.get(key));
+        }
+        System.out.println();
+        for (String key : spells.keySet()) {
+            System.out.println(key + " : " + spells.get(key));
+        }
+        System.out.println();
+        for (String key : armors.keySet()) {
+            System.out.println(key + " : " + armors.get(key));
+        }
+        System.out.println();
 
         if (!potions.isEmpty()) {
             List<String> potionKeys = new ArrayList<>(potions.keySet());
@@ -90,6 +109,12 @@ public class Market {
             List<String> weaponKeys = new ArrayList<>(weapons.keySet());
             String randomWeaponKey = weaponKeys.get(random.nextInt(weaponKeys.size()));
             market.put(randomWeaponKey, weapons.get(randomWeaponKey));
+        }
+
+        if (!armors.isEmpty()) {
+            List<String> armorKeys = new ArrayList<>(armors.keySet());
+            String randomArmorKey = armorKeys.get(random.nextInt(armorKeys.size()));
+            market.put(randomArmorKey, armors.get(randomArmorKey));
         }
 
         if (!spells.isEmpty()) {
