@@ -10,6 +10,16 @@ public class Board {
     private int size = 8;
     private HashMap<UnitKey, Unit> board = new HashMap<>();
     private UnitKey startingPoint = new UnitKey(0, 0);
+    private static Board instance;
+
+    private Board() {}
+
+    public static Board getInstance() {
+        if (instance == null) {
+            instance = new Board();
+        }
+        return instance;
+    }
 
     public void setBoard(int size) {
         Random random = new Random();
@@ -52,8 +62,6 @@ public class Board {
             }
         }
     }
-
-
 
     public void displayBoard() {
         System.out.println("------------------------------------------------");

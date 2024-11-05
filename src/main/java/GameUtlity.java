@@ -129,4 +129,85 @@ public class GameUtlity {
         }
     }
 
+    public int takeValidInput(int lowerLimit, int upperLimit) {
+        int gameChoice = 0;
+        while (true) {
+            String input = Main.SCANNER.next();
+            try {
+                gameChoice = Integer.parseInt(input);
+                if (gameChoice >= lowerLimit && gameChoice <= upperLimit) {
+                    break;
+                } else {
+                    System.out.println("Invalid choice. Please try again.");
+                }
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid input. Please enter a number between "+ lowerLimit +" and "+ upperLimit +".");
+            }
+        }
+        return gameChoice;
+    }
+
+    public String selectHero(){
+        int heroChoice = 0;
+        System.out.println("Select a hero:");
+        HeroRegistry heroRegistry = HeroRegistry.getInstance();
+        int i = 1;
+        for(HashMap.Entry<String, Hero> entry : heroRegistry.getHeroMap().entrySet()){
+            System.out.println(i + ". " + entry.getValue());
+            i++;
+        }
+        heroChoice = takeValidInput(1, i-1);
+        return heroRegistry.getHeroMap().keySet().toArray()[heroChoice-1].toString();
+    }
+
+    public void createHeroParty(int heroNumber) {
+        HeroFactory heroFactory = new PaladinFactory();
+        HeroFactory heroFactory1 = new SorcererFactory();
+        HeroFactory heroFactory2 = new WarriorFactory();
+        HeroRegistry heroRegistry = HeroRegistry.getInstance();
+        for (int i = 0; i < heroNumber; i++) {
+            System.out.println("Enter the name of the hero:");
+            String name = Main.SCANNER.next();
+            while (isHeroNameValid(name) == null) {
+                System.out.println("Invalid hero name. Please enter a valid hero name:");
+                name = Main.SCANNER.next();
+            }
+            ArrayList<Object> attributes = getHeroInitialInfo(name, isHeroNameValid(name));
+            if(attributes.get(7).equals("paladins")){
+                Hero hero = heroFactory.createHero(attributes);
+                System.out.println(hero);
+                heroRegistry.addHero(name, hero);
+            }
+            else if(attributes.get(7).equals("sorcerer")){
+                Hero hero = heroFactory1.createHero(attributes);
+                System.out.println(hero);
+                heroRegistry.addHero(name, hero);
+            }
+            else if(attributes.get(7).equals("warrior")){
+                Hero hero = heroFactory2.createHero(attributes);
+                System.out.println(hero);
+            heroRegistry.addHero(name, hero);
+            }
+        }
+    }
+
+    public double keep2(double value) {
+        String valueString = String.format("%.2f", value);
+        return Double.parseDouble(valueString);
+    }
+
+
+
+    public void InitializeGame() {
+        JsonLoader.loadWarriorJSONArray();
+        JsonLoader.loadSorcererJSONArray();
+        JsonLoader.loadPaladinJSONArray();
+        JsonLoader.loadPotionJSONArray();
+        JsonLoader.loadWeaponJSONArray();
+        JsonLoader.loadSpellJSONArray();
+        Board board = Board.getInstance();
+        board.improvedSetBoard(8);
+    }
+
+
 }

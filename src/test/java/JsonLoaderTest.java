@@ -109,15 +109,18 @@ class JsonLoaderTest {
         heroRegistry.addHero("Caliber_Heist", hero);
         heroRegistry.addHero("Kalabar", hero2);
 
+        System.out.println(heroRegistry.getHero("Caliber_Heist"));
+        System.out.println();
+        System.out.println(heroRegistry.getHero("Kalabar"));
+        System.out.println();
+
         hero.levelUp();
         hero2.levelUp();
 
         System.out.println(heroRegistry.getHero("Caliber_Heist"));
-
-        //public Potion(String name, int cost, int requiredLevel, int increaseValue, ArrayList<Object> attribute, int usage)
-        Potion p1 = new Potion("Health Potion", 10, 10, 10, a1, 10);
-        hero.addInventory("Health Potion", p1);
-        System.out.println(heroRegistry.getHero("Caliber_Heist"));
+        System.out.println(hero.getType());
+        System.out.println(heroRegistry.getHero("Kalabar"));
+        System.out.println(hero2.getType());
     }
 
     @Test
@@ -126,13 +129,6 @@ class JsonLoaderTest {
         ArrayList<Object> a1 = gameUtlity.getPotionInfo("Ambrosia", JsonArrayHolder.getInstance().getPotionJSONArray());
         Potion p1 = new Potion(a1);
         System.out.println(p1);
-    }
-
-    @Test
-    void setboardTest() {
-        Board board = new Board();
-        board.setBoard(8);
-        board.displayBoard();
     }
 
     @Test
@@ -195,71 +191,63 @@ class JsonLoaderTest {
 //        System.out.println(market.getMarket());
 //    }
 
-//    @Test
-//    void sellItemTest() {
-//        GameUtlity gameUtlity = new GameUtlity();
-//        HeroFactory heroFactory = new WarriorFactory();
-//        HeroRegistry heroRegistry = HeroRegistry.getInstance();
-//
-//        ArrayList<Object> attributes = gameUtlity.getHeroInitialInfo("Eunoia_Cyn", gameUtlity.isHeroNameValid("Eunoia_Cyn"));
-//        ArrayList<Object> attributes2 = gameUtlity.getHeroInitialInfo("Undefeated_Yoj", gameUtlity.isHeroNameValid("Undefeated_Yoj"));
-//        Hero hero = heroFactory.createHero(attributes);
-//        Hero hero2 = heroFactory.createHero(attributes2);
-//
-//        heroRegistry.addHero("Eunoia_Cyn", hero);
-//        heroRegistry.addHero("Undefeated_Yoj", hero2);
-//
-//        Market market = new Market();
-//        market.createRandomMarket();
-//        System.out.println(market.getMarket());
-//        System.out.println();
-//
-//        market.sellItem("Heat_Wave", "Eunoia_Cyn");
-//
-//        System.out.println(market.getMarket());
-//        System.out.println();
-//        System.out.println(heroRegistry.getHero("Eunoia_Cyn"));
-//    }
+    @Test
+    void sellItemTest() {
+        GameUtlity gameUtlity = new GameUtlity();
+        HeroFactory heroFactory = new WarriorFactory();
+        HeroRegistry heroRegistry = HeroRegistry.getInstance();
 
-//    @Test
-//    void buyItemTest(){
-//        GameUtlity gameUtlity = new GameUtlity();
-//        HeroFactory heroFactory = new WarriorFactory();
-//        HeroRegistry heroRegistry = HeroRegistry.getInstance();
-//
-//        ArrayList<Object> attributes = gameUtlity.getHeroInitialInfo("Eunoia_Cyn", gameUtlity.isHeroNameValid("Eunoia_Cyn"));
-//        ArrayList<Object> attributes2 = gameUtlity.getHeroInitialInfo("Undefeated_Yoj", gameUtlity.isHeroNameValid("Undefeated_Yoj"));
-//        Hero hero = heroFactory.createHero(attributes);
-//        Hero hero2 = heroFactory.createHero(attributes2);
-//
-//        heroRegistry.addHero("Eunoia_Cyn", hero);
-//        heroRegistry.addHero("Undefeated_Yoj", hero2);
-//
-//        ArrayList<Object> a1 = gameUtlity.getPotionInfo("Ambrosia", JsonArrayHolder.getInstance().getPotionJSONArray());
-//        Potion p1 = new Potion(a1);
-//
-//        heroRegistry.getHero("Eunoia_Cyn").addInventory("Ambrosia", p1);
-//
-//        Market market = new Market();
-//        market.createRandomMarket();
-//        System.out.println(market.getMarket());
-//        System.out.println();
-//        System.out.println(heroRegistry.getHero("Eunoia_Cyn"));
-//        System.out.println();
-//
-//        market.buyItem("Ambrosia", "Eunoia_Cyn");
-//
-//        System.out.println(market.getMarket());
-//        System.out.println();
-//        System.out.println(heroRegistry.getHero("Eunoia_Cyn"));
-//    }
+        ArrayList<Object> attributes = gameUtlity.getHeroInitialInfo("Eunoia_Cyn", gameUtlity.isHeroNameValid("Eunoia_Cyn"));
+        ArrayList<Object> attributes2 = gameUtlity.getHeroInitialInfo("Undefeated_Yoj", gameUtlity.isHeroNameValid("Undefeated_Yoj"));
+        Hero hero = heroFactory.createHero(attributes);
+        Hero hero2 = heroFactory.createHero(attributes2);
+
+        heroRegistry.addHero("Eunoia_Cyn", hero);
+        heroRegistry.addHero("Undefeated_Yoj", hero2);
+
+        Market market = new Market();
+        market.createRandomMarket();
+        System.out.println(market.getMarket());
+        System.out.println();
+
+        market.sellItem("Heat_Wave", "Eunoia_Cyn");
+
+        System.out.println(market.getMarket());
+        System.out.println();
+        System.out.println(heroRegistry.getHero("Eunoia_Cyn"));
+    }
 
     @Test
-    void testBoard(){
-        //funtionality to regenerate board
-        Board board = new Board();
-        board.improvedSetBoard(8);
-        board.displayBoard();
+    void buyItemTest(){
+        GameUtlity gameUtlity = new GameUtlity();
+        HeroFactory heroFactory = new WarriorFactory();
+        HeroRegistry heroRegistry = HeroRegistry.getInstance();
+
+        ArrayList<Object> attributes = gameUtlity.getHeroInitialInfo("Eunoia_Cyn", gameUtlity.isHeroNameValid("Eunoia_Cyn"));
+        ArrayList<Object> attributes2 = gameUtlity.getHeroInitialInfo("Undefeated_Yoj", gameUtlity.isHeroNameValid("Undefeated_Yoj"));
+        Hero hero = heroFactory.createHero(attributes);
+        Hero hero2 = heroFactory.createHero(attributes2);
+
+        heroRegistry.addHero("Eunoia_Cyn", hero);
+        heroRegistry.addHero("Undefeated_Yoj", hero2);
+
+        ArrayList<Object> a1 = gameUtlity.getPotionInfo("Ambrosia", JsonArrayHolder.getInstance().getPotionJSONArray());
+        Potion p1 = new Potion(a1);
+
+        heroRegistry.getHero("Eunoia_Cyn").addInventory("Ambrosia", p1);
+
+        Market market = new Market();
+        market.createRandomMarket();
+        System.out.println(market.getMarket());
+        System.out.println();
+        System.out.println(heroRegistry.getHero("Eunoia_Cyn"));
+        System.out.println();
+
+        market.buyItem("Ambrosia", "Eunoia_Cyn");
+
+        System.out.println(market.getMarket());
+        System.out.println();
+        System.out.println(heroRegistry.getHero("Eunoia_Cyn"));
     }
 
 }

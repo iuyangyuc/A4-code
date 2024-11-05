@@ -76,19 +76,19 @@ public class Paladin implements Hero {
     public void setEmpty_hand(int empty_hand) { this.empty_hand = empty_hand; }
 
     public void levelUp() {
+        GameUtlity gameUtlity = new GameUtlity();
         this.level++;
         this.Hp = this.level * 100;
-        this.strength = (double) Math.round(this.strength * 1.1 * 100) / 100;
-        this.agility = (double) Math.round(this.mana * 1.05 * 100) / 100;
-        this.dexterity = (double) Math.round(this.strength * 1.1 * 100) / 100;
-        this.mana = (double) Math.round(this.mana * 1.05 * 100) / 100;
+        this.strength = gameUtlity.keep2(this.strength * 1.1);
+        this.agility = gameUtlity.keep2(this.agility * 1.05);
+        this.dexterity = gameUtlity.keep2(this.dexterity * 1.1);
+        this.mana = gameUtlity.keep2(this.mana * 1.05);
         this.Xp = 0;
     }
 
     @Override
     public String toString() {
-        return "Hero{" +
-                "name='" + name + '\'' +
+        return "name='" + name + '\'' +
                 ", mana=" + mana +
                 ", strength=" + strength +
                 ", agility=" + agility +
@@ -98,8 +98,7 @@ public class Paladin implements Hero {
                 ", Hp=" + Hp +
                 ", Xp=" + Xp +
                 ", Inventory=" + Inventory +
-                ", empty_hand=" + empty_hand +
-                '}';
+                ", empty_hand=" + empty_hand;
     }
 
     public void addInventory(String item_name, Object item) {

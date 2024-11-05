@@ -74,7 +74,7 @@ public class Market {
         }
     }
 
-    private void createRandomMarket() {
+    public void createRandomMarket() {
         createPotionList();
         createWeaponList();
         createSpellList();
@@ -100,7 +100,7 @@ public class Market {
         }
     }
 
-     private void sellItem(String item_name, String hero_name) {
+     public void sellItem(String item_name, String hero_name) {
         Hero hero = heroRegistry.getHero(hero_name);
         hero.addInventory(item_name, market.get(item_name));
         double cost = 0;
@@ -117,7 +117,7 @@ public class Market {
         market.remove(item_name);
     }
 
-    private void buyItem(String item_name, String hero_name) {
+    public void buyItem(String item_name, String hero_name) {
         Hero hero = heroRegistry.getHero(hero_name);
         double cost = 0;
         String type = hero.getInventory().get(item_name).getClass().getTypeName();
@@ -134,6 +134,20 @@ public class Market {
         hero.removeInventory(item_name);
         hero.setGold(hero.getGold() + cost/2);
     }
+
+    public void displayMarket(){
+        for (String key : market.keySet()) {
+            System.out.println(key + " : " + market.get(key));
+        }
+    }
+
+    public void displayInventory(String hero_name){
+        Hero hero = heroRegistry.getHero(hero_name);
+        for (String key : hero.getInventory().keySet()) {
+            System.out.println(key + " : " + hero.getInventory().get(key));
+        }
+    }
+
 
 
     public HashMap<String, Potion> getPotions() {
