@@ -198,7 +198,7 @@ public class GameStateMachine {
             currentState = GameState.BATTLE;
             System.out.println("Encounter enemies.");
             int avgLevelDiff = gameUtlity.differenceToNearestInt(gameUtlity.HeroAvgLevel(), gameUtlity.HeroInitAvgLevel());
-            //gameUtlity.createMonsterParty(heroRegistry.getHeroMap().size() + Main.difficulty, avgLevelDiff + Main.difficulty);
+            gameUtlity.createMonsterParty(heroRegistry.getHeroMap().size() + Main.difficulty, avgLevelDiff + Main.difficulty);
             boolean isBattleOver = false;
             int turn = 0;
             while (!isBattleOver) {
