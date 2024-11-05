@@ -23,6 +23,9 @@ public class BattleUtlity {
         else{
             System.out.println("This weapon is not in the inventory");
         }
+        StringBuilder sb = new StringBuilder();
+        sb.append("Hero: ").append(hero.getName()).append(" equipped weapon: ").append(weapon_name).append(" in hand: ").append(hand);
+        System.out.println(sb);
     }
 
     public void unEquipWeapon(Hero hero, String weapon_name, int hand){
@@ -40,6 +43,9 @@ public class BattleUtlity {
         else{
             System.out.println("Wrong hand or weapon name");
         }
+        StringBuilder sb = new StringBuilder();
+        sb.append("Hero: ").append(hero.getName()).append(" unequipped weapon: ").append(weapon_name).append(" from hand: ").append(hand);
+        System.out.println(sb);
     }
 
     public void equipArmor(Hero hero, String armor_name){
@@ -57,6 +63,9 @@ public class BattleUtlity {
         else{
             System.out.println("This armor is not in the inventory");
         }
+        StringBuilder sb = new StringBuilder();
+        sb.append("Hero: ").append(hero.getName()).append(" equipped armor: ").append(armor_name);
+        System.out.println(sb);
     }
 
     public void unEquipArmor(Hero hero, String armor_name){
@@ -74,6 +83,8 @@ public class BattleUtlity {
         else{
             System.out.println("This armor is not in the inventory");
         }
+        StringBuilder sb = new StringBuilder();
+        sb.append("Hero: ").append(hero.getName()).append(" unequipped armor: ").append(armor_name);
     }
 
     public void usePotion(Hero hero, String potion_name){
@@ -109,6 +120,15 @@ public class BattleUtlity {
         else{
             System.out.println("This potion is not in the inventory");
         }
+        StringBuilder sb = new StringBuilder();
+        Potion potion = (Potion) hero.getInventory().get(potion_name);
+        sb.append("Hero: ").append(hero.getName()).append(" used potion: ").append(potion_name);
+        sb.append(" with attributes:");
+        for(Object o : potion.getAttribute()){
+            sb.append(" ").append(o);
+        }
+        sb.append(" and increase value: ").append(potion.getIncreaseValue());
+        System.out.println(sb);
     }
 
     public void useSpell(Hero hero, String spell_name, Monster monster){
@@ -125,6 +145,11 @@ public class BattleUtlity {
         else{
             System.out.println("This spell is not in the inventory");
         }
+        StringBuilder sb = new StringBuilder();
+        Spell spell = (Spell) hero.getInventory().get(spell_name);
+        sb.append("Hero: ").append(hero.getName()).append(" used spell: ").append(spell_name);
+        sb.append(" on monster: ").append(monster.getName()).append(" with damage: ").append(spell.getDamage());
+        System.out.println(sb);
     }
 
     public void endBattle(){
@@ -156,20 +181,20 @@ public class BattleUtlity {
     public void ifLevelUp(Hero hero){
         if(hero.getXp() >= hero.getLevel() * 10){
             hero.levelUp();
-            hero.setXp(0);
+            //hero.setXp(0);
         }
     }
 
     public boolean isHeroDoge(Hero hero){
         double dodgeChance = hero.getAgility() * 0.002;
         double random = Math.random();
-        return random < dodgeChance;
+        return random > dodgeChance;
     }
 
     public boolean isMonsterDoge(Monster monster){
         double dodgeChance = monster.getDodgeChance() * 0.01;
         double random = Math.random();
-        return random < dodgeChance;
+        return random > dodgeChance;
     }
 
     public double heroAttackDamage(Hero hero, Monster monster) {
@@ -188,14 +213,26 @@ public class BattleUtlity {
         boolean isMonsterDoge = isMonsterDoge(monster);
         if(isMonsterDoge){
             monster.setHp(monster.getHp() - heroAttackDamage(hero, monster));
+            StringBuilder sb = new StringBuilder();
+            sb.append("Hero: ").append(hero.getName()).append(" attacked monster: ").append(monster.getName());
+            sb.append(" with damage: ").append(heroAttackDamage(hero, monster));
+            System.out.println(sb);
+        } else {
+            System.out.println("Hero: " + hero.getName() + " missed");
         }
         return isMonsterDoge;
     }
 
     public boolean monsterAttack(Monster monster, Hero hero){
         boolean isHeroDoge = isHeroDoge(hero);
-        if(!isHeroDoge){
+        if(isHeroDoge){
             hero.setHp(hero.getHp() - monsterAttackDamage(monster, hero));
+            StringBuilder sb = new StringBuilder();
+            sb.append("Monster: ").append(monster.getName()).append(" attacked hero: ").append(hero.getName());
+            sb.append(" with damage: ").append(monsterAttackDamage(monster, hero));
+            System.out.println(sb);
+        } else {
+            System.out.println("Monster: " + monster.getName() + " missed");
         }
         return isHeroDoge;
     }

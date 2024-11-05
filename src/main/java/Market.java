@@ -101,8 +101,8 @@ public class Market {
 
         if (!spells.isEmpty()) {
             List<String> spellKeys = new ArrayList<>(spells.keySet());
-            //String randomSpellKey = spellKeys.get(random.nextInt(spellKeys.size()));
-            String randomSpellKey = spellKeys.get(0);
+            String randomSpellKey = spellKeys.get(random.nextInt(spellKeys.size()));
+            //String randomSpellKey = spellKeys.get(0);
             market.put(randomSpellKey, spells.get(randomSpellKey));
         }
     }
@@ -142,6 +142,19 @@ public class Market {
         hero.setGold(hero.getGold() + cost/2);
     }
 
+    //TODO
+    public void repairItem(String name, String hero_name){
+        Hero hero = heroRegistry.getHero(hero_name);
+        double cost = 0;
+        if(hero.getInventory().get(name) instanceof Weapon){
+            cost = ((Weapon) hero.getInventory().get(name)).getCost();
+        }
+        else if(hero.getInventory().get(name) instanceof Armor){
+            cost = ((Armor) hero.getInventory().get(name)).getCost();
+        }
+        hero.setGold(hero.getGold() - cost);
+    }
+
     public void displayMarket(){
         for (String key : market.keySet()) {
             System.out.println(key + " : " + market.get(key));
@@ -157,6 +170,19 @@ public class Market {
         }
         else if(market.get(item_name) instanceof Spell){
             return ((Spell) market.get(item_name)).getCost();
+        }
+        return 0;
+    }
+
+    public int getItemLevel(String item_name){
+        if(market.get(item_name) instanceof Potion){
+            return ((Potion) market.get(item_name)).getRequiredLevel();
+        }
+        else if(market.get(item_name) instanceof Weapon){
+            return ((Weapon) market.get(item_name)).getRequiredLevel();
+        }
+        else if(market.get(item_name) instanceof Spell){
+            return ((Spell) market.get(item_name)).getRequiredLevel();
         }
         return 0;
     }

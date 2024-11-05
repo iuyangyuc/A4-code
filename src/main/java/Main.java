@@ -5,6 +5,7 @@ import java.util.Scanner;
 public class Main {
 
     public static final Scanner SCANNER = new Scanner(System.in);
+    public static int difficulty = 0;
 
     public static void main(String[] args) {
         GameStateMachine gameStateMachine = new GameStateMachine();

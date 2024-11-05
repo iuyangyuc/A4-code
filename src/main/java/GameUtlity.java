@@ -275,6 +275,42 @@ public class GameUtlity {
         return Double.parseDouble(valueString);
     }
 
+    public int differenceToNearestInt(double a, double b){
+        double difference = Math.abs(a - b);
+        return (int) Math.round(difference);
+    }
+
+    public double HeroAvgLevel(){
+        HeroRegistry heroRegistry = HeroRegistry.getInstance();
+        double avgLevel = 0;
+        for(HashMap.Entry<String, Hero> entry : heroRegistry.getHeroMap().entrySet()){
+            avgLevel += entry.getValue().getLevel();
+        }
+        return avgLevel / heroRegistry.getHeroMap().size();
+    }
+
+    //get Hero Init Avg level from JSONArray
+    public double HeroInitAvgLevel(){
+        JSONArray wjsonArray = JsonArrayHolder.getInstance().getWarriorJSONArray();
+        JSONArray sjsonArray = JsonArrayHolder.getInstance().getSorcererJSONArray();
+        JSONArray pjsonArray = JsonArrayHolder.getInstance().getPaladinJSONArray();
+        double avgLevel = 0;
+        int count = 0;
+        for (int i = 0; i < wjsonArray.length(); i++) {
+            avgLevel += wjsonArray.getJSONObject(i).getInt("starting_level");
+            count++;
+        }
+        for (int i = 0; i < sjsonArray.length(); i++) {
+            avgLevel += sjsonArray.getJSONObject(i).getInt("starting_level");
+            count++;
+        }
+        for (int i = 0; i < pjsonArray.length(); i++) {
+            avgLevel += pjsonArray.getJSONObject(i).getInt("starting_level");
+            count++;
+        }
+        return avgLevel / count;
+    }
+
     public void displayInventory(String hero_name){
         Hero hero = heroRegistry.getHero(hero_name);
         for (String key : hero.getInventory().keySet()) {
@@ -292,7 +328,7 @@ public class GameUtlity {
     public void displayAllHeroInfo(){
         HeroRegistry heroRegistry = HeroRegistry.getInstance();
         for(HashMap.Entry<String, Hero> entry : heroRegistry.getHeroMap().entrySet()){
-            System.out.println(entry.getValue());
+            if(entry.getValue().getHp() > 0) System.out.println(entry.getValue());
         }
     }
 

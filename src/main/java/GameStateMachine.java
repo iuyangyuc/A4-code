@@ -40,7 +40,6 @@ public class GameStateMachine {
     public void Moving() {
         if (currentState == GameState.IDLE) {
             currentState = GameState.MOVE;
-            //TODO: move logic
             Board board = Board.getInstance();
             int x = 0;
             int y = 0;
@@ -63,14 +62,14 @@ public class GameStateMachine {
                                 Random random = new Random();
                                 int randomNum = random.nextInt(10);
                                 if (randomNum <= 4) {
-                                    System.out.println("Encounter enemies.");
-                                    //encounterEnemy();
+                                    //System.out.println("Encounter enemies.");
+                                    encounterEnemy();
                                 }
                                 System.out.println("Moved up.");
                             }
                             else if (board.getBoard().get(new UnitKey(x - 1, y)).getType() == UnitEvent.MARKET) {
-                                    //enterShop();
-                                    System.out.println("Enter the shop.");
+                                    enterShop();
+                                    //System.out.println("Enter the shop.");
                             }
                             else if (board.getBoard().get(new UnitKey(x - 1, y)).getType() == UnitEvent.BLOCK) {
                                     System.out.println("Cannot move up. Blocked unit.");
@@ -93,15 +92,15 @@ public class GameStateMachine {
                                 Random random = new Random();
                                 int randomNum = random.nextInt(10);
                                 if (randomNum <= 4) {
-                                    System.out.println("Encounter enemies.");
-                                    //encounterEnemy();
+                                    //System.out.println("Encounter enemies.");
+                                    encounterEnemy();
                                 }
                                 System.out.println("Moved down.");
 
                             }
                             else if (board.getBoard().get(new UnitKey(x + 1, y)).getType() == UnitEvent.MARKET) {
-                                System.out.println("Enter the shop.");
-                                //enterShop();
+                                //System.out.println("Enter the shop.");
+                                enterShop();
                             }
                             else if (board.getBoard().get(new UnitKey(x + 1, y)).getType() == UnitEvent.BLOCK) {
                                 System.out.println("Cannot move down. Blocked unit.");
@@ -124,14 +123,14 @@ public class GameStateMachine {
                                 Random random = new Random();
                                 int randomNum = random.nextInt(10);
                                 if (randomNum <= 4) {
-                                    System.out.println("Encounter enemies.");
-                                    //encounterEnemy();
+                                    //System.out.println("Encounter enemies.");
+                                    encounterEnemy();
                                 }
                                 System.out.println("Moved left.");
                             }
                             else if (board.getBoard().get(new UnitKey(x, y - 1)).getType() == UnitEvent.MARKET) {
-                                System.out.println("Enter the shop.");
-                                //enterShop();
+                                //System.out.println("Enter the shop.");
+                                enterShop();
                             }
                             else if (board.getBoard().get(new UnitKey(x, y - 1)).getType() == UnitEvent.BLOCK) {
                                 System.out.println("Cannot move left. Blocked unit.");
@@ -154,14 +153,14 @@ public class GameStateMachine {
                                 Random random = new Random();
                                 int randomNum = random.nextInt(10);
                                 if (randomNum <= 4) {
-                                    System.out.println("Encounter enemies.");
-                                    //encounterEnemy();
+                                    //System.out.println("Encounter enemies.");
+                                    encounterEnemy();
                                 }
                                 System.out.println("Moved right.");
                             }
                             else if (board.getBoard().get(new UnitKey(x, y + 1)).getType() == UnitEvent.MARKET) {
-                                System.out.println("Enter the shop.");
-                                //enterShop();
+                                //System.out.println("Enter the shop.");
+                                enterShop();
                             }
                             else if (board.getBoard().get(new UnitKey(x, y + 1)).getType() == UnitEvent.BLOCK) {
                                 System.out.println("Cannot move right. Blocked unit.");
@@ -198,7 +197,8 @@ public class GameStateMachine {
         if (currentState == GameState.MOVE) {
             currentState = GameState.BATTLE;
             System.out.println("Encounter enemies.");
-            gameUtlity.createMonsterParty(heroRegistry.getHeroMap().size(), 0);
+            int avgLevelDiff = gameUtlity.differenceToNearestInt(gameUtlity.HeroAvgLevel(), gameUtlity.HeroInitAvgLevel());
+            gameUtlity.createMonsterParty(heroRegistry.getHeroMap().size() + Main.difficulty, avgLevelDiff + Main.difficulty);
             boolean isBattleOver = false;
             int turn = 0;
             while (!isBattleOver) {
@@ -222,8 +222,6 @@ public class GameStateMachine {
                     switch (action) {
                         case 1:
                             boolean b = battleUtlity.heroAttack(heroRegistry.getHero(heroChoice), monsterRegistry.getMonster(monsterChoice));
-                            if (b) System.out.println("Attacked.");
-                            else System.out.println("Missed.");
                             break;
                         case 2:
                             System.out.println("Select a spell to use:");
@@ -290,9 +288,14 @@ public class GameStateMachine {
                         default:
                             break;
                     }
-                } else {
-                    //Monster turn
+                }
+                if (turn % 2 == 1) {
                     Random random = new Random();
+                    for (Monster monster : monsterRegistry.getMonsterMap().values()) {
+                        if (monster.getHp() <= 0) {
+                            monsterRegistry.removeMonster(monster.getName());
+                        }
+                    }
                     int heroIndex = random.nextInt(heroRegistry.getHeroMap().size());
                     int monsterIndex = random.nextInt(monsterRegistry.getMonsterMap().size());
                     battleUtlity.monsterAttack(monsterRegistry.getMonster(monsterRegistry.getMonsterMap().keySet().toArray()[monsterIndex].toString()),
@@ -300,7 +303,11 @@ public class GameStateMachine {
                 }
                 turn++;
 
-                //TODO: Check if battle is over
+                for (Hero hero : heroRegistry.getHeroMap().values()) {
+                    if (hero.getHp() > 0 ) hero.setHp(hero.getHp() + 20);
+                    if (hero.getHp() > 0 ) hero.setMana(hero.getMana() + 20);
+                }
+
                 boolean allHeroesDead = true;
                 for (Hero hero : heroRegistry.getHeroMap().values()) {
                     if (hero.getHp() > 0) {
@@ -327,7 +334,7 @@ public class GameStateMachine {
                     isBattleOver = true;
                 }
             }
-
+            winBattle();
         } else {
             System.out.println("Invalid action: Can only encounter enemy from MOVE state.");
         }
@@ -343,8 +350,10 @@ public class GameStateMachine {
             while (true) {
                 System.out.println("1. Buy Item");
                 System.out.println("2. Sell Item");
-                System.out.println("3. Exit Shop");
-                int choice = gameUtlity.takeValidInput(1, 3);
+                System.out.println("3. Repair Item");
+                System.out.println("4. Switch Hero");
+                System.out.println("5. Exit Shop");
+                int choice = gameUtlity.takeValidInput(1, 5);
                 if (choice == 1) {
                     if (market.getMarket().isEmpty()) {
                         System.out.println("No items to buy.");
@@ -359,6 +368,10 @@ public class GameStateMachine {
                     }
                     if(heroRegistry.getHero(heroChoice).getGold() < market.getItemCost(item_name)){
                         System.out.println("Not enough gold to buy the item.");
+                        continue;
+                    }
+                    if(heroRegistry.getHero(heroChoice).getLevel() < market.getItemLevel(item_name)){
+                        System.out.println("Hero level is not enough to buy the item.");
                         continue;
                     }
                     market.sellItem(item_name, heroChoice);
@@ -377,11 +390,28 @@ public class GameStateMachine {
                     }
                     market.buyItem(item_name, heroChoice);
                     market.displayMarket();
-                } else {
+                } else if (choice == 3) {
+                    System.out.println("Enter the item name you want to repair:");
+                    gameUtlity.displayInventory(heroChoice);
+                    String item_name = Main.SCANNER.next();
+                    while (!heroRegistry.getHero(heroChoice).getInventory().containsKey(item_name)) {
+                        System.out.println("Invalid item name. Please enter a valid item name:");
+                        item_name = Main.SCANNER.next();
+                    }
+                    if(heroRegistry.getHero(heroChoice).getGold() < market.getItemCost(item_name) / 2){
+                        System.out.println("Not enough gold to repair the item.");
+                        continue;
+                    }
+                    market.repairItem(item_name, heroChoice);
+                }
+                else if (choice == 4) {
+                    heroChoice = gameUtlity.selectHero();
+                }
+                else {
+                    exitShop();
                     break;
                 }
             }
-            exitShop();
         } else {
             System.out.println("Invalid action: Can only enter shop from MOVE state.");
         }
@@ -399,7 +429,7 @@ public class GameStateMachine {
     public void exitShop() {
         if (currentState == GameState.SHOP) {
             currentState = GameState.MOVE;
-            System.out.println("Transitioned to IDLE: Player exits the shop.");
+            System.out.println("Player exits the shop.");
         } else {
             System.out.println("Invalid action: Can only exit shop from SHOP state.");
         }
