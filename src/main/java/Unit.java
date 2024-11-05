@@ -1,7 +1,7 @@
 public class Unit {
 
     private boolean accessible;
-    private int type;
+    private UnitEvent type;
     private int x;
     private int y;
 
@@ -11,20 +11,7 @@ public class Unit {
     public Unit(UnitEvent event, int x, int y) {
         this.x = x;
         this.y = y;
-        switch (event) {
-            case EMPTY:
-                accessible = true;
-                type = 0;
-                break;
-            case MARKET:
-                accessible = true;
-                type = 1;
-                break;
-            case BLOCK:
-                accessible = false;
-                type = 2;
-                break;
-        }
+        this.type = event;
     }
 
     public boolean isAccessible() {
@@ -35,11 +22,11 @@ public class Unit {
         this.accessible = accessible;
     }
 
-    public int getType() {
+    public UnitEvent getType() {
         return type;
     }
 
-    public void setType(int type) {
+    public void setType(UnitEvent type) {
         this.type = type;
     }
 
@@ -61,11 +48,11 @@ public class Unit {
 
     public String getSymbol() {
         switch (type) {
-            case 0:
+            case EMPTY:
                 return " ";
-            case 1:
+            case MARKET:
                 return "M";
-            case 2:
+            case BLOCK:
                 return "X";
             default:
                 return " ";

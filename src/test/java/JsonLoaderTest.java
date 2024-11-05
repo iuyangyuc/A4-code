@@ -254,4 +254,12 @@ class JsonLoaderTest {
 //        System.out.println(heroRegistry.getHero("Eunoia_Cyn"));
 //    }
 
+    @Test
+    void testBoard(){
+        //funtionality to regenerate board
+        Board board = new Board();
+        board.improvedSetBoard(8);
+        board.displayBoard();
+    }
+
 }

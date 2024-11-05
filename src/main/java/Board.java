@@ -5,11 +5,11 @@ import java.util.Set;
 
 public class Board {
 
-
     private final UnitEvent[] CELL_TYPES = {UnitEvent.EMPTY, UnitEvent.MARKET, UnitEvent.BLOCK};
     private final int[] CELLS_TO_PLACE = {32, 19, 13};
     private int size = 8;
     private HashMap<UnitKey, Unit> board = new HashMap<>();
+    private UnitKey startingPoint = new UnitKey(0, 0);
 
     public void setBoard(int size) {
         Random random = new Random();
@@ -36,6 +36,24 @@ public class Board {
             }
         }
     }
+
+    public void improvedSetBoard(int size){
+        UnitKey key = new UnitKey(0, 1);
+        UnitKey key2 = new UnitKey(1, 0);
+        boolean recreate = true;
+        while(recreate){
+            setBoard(size);
+            if(board.get(key).getType() == UnitEvent.EMPTY &&
+                    board.get(key2).getType() == UnitEvent.EMPTY &&
+                    board.get(startingPoint).getType() == UnitEvent.EMPTY){
+                recreate = false;
+            } else {
+                board.clear();
+            }
+        }
+    }
+
+
 
     public void displayBoard() {
         System.out.println("------------------------------------------------");
