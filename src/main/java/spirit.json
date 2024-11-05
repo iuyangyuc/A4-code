@@ -1,0 +1,79 @@
+[
+  {
+    "name": "Andrealphus",
+    "level": 2,
+    "damage": 600,
+    "defense": 500,
+    "dodge_chance": 40
+  },
+  {
+    "name": "Blinky",
+    "level": 1,
+    "damage": 450,
+    "defense": 350,
+    "dodge_chance": 35
+  },
+  {
+    "name": "Andromalius",
+    "level": 3,
+    "damage": 550,
+    "defense": 450,
+    "dodge_chance": 25
+  },
+  {
+    "name": "Chiang-shih",
+    "level": 4,
+    "damage": 700,
+    "defense": 600,
+    "dodge_chance": 40
+  },
+  {
+    "name": "FallenAngel",
+    "level": 5,
+    "damage": 800,
+    "defense": 700,
+    "dodge_chance": 50
+  },
+  {
+    "name": "Ereshkigall",
+    "level": 6,
+    "damage": 950,
+    "defense": 450,
+    "dodge_chance": 35
+  },
+  {
+    "name": "Melchiresas",
+    "level": 7,
+    "damage": 350,
+    "defense": 150,
+    "dodge_chance": 75
+  },
+  {
+    "name": "Jormunngand",
+    "level": 8,
+    "damage": 600,
+    "defense": 900,
+    "dodge_chance": 20
+  },
+  {
+    "name": "Rakkshasass",
+    "level": 9,
+    "damage": 550,
+    "defense": 600,
+    "dodge_chance": 35
+  },
+  {
+    "name": "Taltecuhtli",
+    "level": 10,
+    "damage": 300,
+    "defense": 200,
+    "dodge_chance": 50
+  },
+  {
+    "name": "Casper",
+    "level": 1,
+    "damage": 100,
+    "defense": 100,
+    "dodge_chance": 50
+  }
+]

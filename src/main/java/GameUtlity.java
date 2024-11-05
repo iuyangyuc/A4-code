@@ -6,6 +6,7 @@ import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Random;
 
 public class GameUtlity {
 
@@ -122,6 +123,20 @@ public class GameUtlity {
         return armorInfo;
     }
 
+    public ArrayList<Object> getMonsterInfo(String name, JSONArray jsonArray){
+        ArrayList<Object> monsterInfo = new ArrayList<>();
+        for (int i = 0; i < jsonArray.length(); i++) {
+            if (jsonArray.getJSONObject(i).getString("name").equals(name)) {
+                monsterInfo.add(jsonArray.getJSONObject(i).get("name"));
+                monsterInfo.add(jsonArray.getJSONObject(i).get("level"));
+                monsterInfo.add(jsonArray.getJSONObject(i).get("damage"));
+                monsterInfo.add(jsonArray.getJSONObject(i).get("defense"));
+                monsterInfo.add(jsonArray.getJSONObject(i).get("dodge_chance"));
+            }
+        }
+        return monsterInfo;
+    }
+
     public void removeUsedItem(){
         HeroRegistry heroRegistry = HeroRegistry.getInstance();
         for(HashMap.Entry<String, Hero> entry : heroRegistry.getHeroMap().entrySet()){
@@ -206,6 +221,41 @@ public class GameUtlity {
         }
     }
 
+    public void createMonsterParty(int monsterNumber, int increasedLevel) {
+        Random random = new Random();
+        MonsterFactory monsterFactory = new DragonFactory();
+        MonsterFactory monsterFactory1 = new ExoskeletonFactory();
+        MonsterFactory monsterFactory2 = new SpiritFactory();
+        JSONArray dragonArray = JsonArrayHolder.getInstance().getDragonJSONArray();
+        JSONArray exoskeletonArray = JsonArrayHolder.getInstance().getExoskeletonJSONArray();
+        JSONArray spiritArray = JsonArrayHolder.getInstance().getSpiritJSONArray();
+        MonsterRegistry monsterRegistry = MonsterRegistry.getInstance();
+
+        for (int i = 0; i < monsterNumber; i++) {
+            int type = random.nextInt(Integer.MAX_VALUE);
+            System.out.println(type);
+            if (type % 3 == 0) {
+                Monster monster = monsterFactory.createMonster(getMonsterInfo(dragonArray.getJSONObject(type % dragonArray.length()).getString("name"), dragonArray));
+                monsterRegistry.addMonster(dragonArray.getJSONObject(type % dragonArray.length()).getString("name"), monster);
+            }
+            else if (type % 3 == 1) {
+                Monster monster = monsterFactory1.createMonster(getMonsterInfo(exoskeletonArray.getJSONObject(type % exoskeletonArray.length()).getString("name"), exoskeletonArray));
+                monsterRegistry.addMonster(exoskeletonArray.getJSONObject(type % exoskeletonArray.length()).getString("name"), monster);
+            }
+            else {
+                Monster monster = monsterFactory2.createMonster(getMonsterInfo(spiritArray.getJSONObject(type % spiritArray.length()).getString("name"), spiritArray));
+                monsterRegistry.addMonster(spiritArray.getJSONObject(type % spiritArray.length()).getString("name"), monster);
+            }
+        }
+
+        if(increasedLevel > 0){
+            for(HashMap.Entry<String, Monster> entry : monsterRegistry.getMonsterMap().entrySet()){
+                Monster monster = entry.getValue();
+                monster.levelUp(increasedLevel);
+            }
+        }
+    }
+
     public double keep2(double value) {
         String valueString = String.format("%.2f", value);
         return Double.parseDouble(valueString);
@@ -226,6 +276,9 @@ public class GameUtlity {
         JsonLoader.loadWeaponJSONArray();
         JsonLoader.loadSpellJSONArray();
         JsonLoader.loadArmorJSONArray();
+        JsonLoader.loadSpiritJSONArray();
+        JsonLoader.loadDragonJSONArray();
+        JsonLoader.loadExoskeletonJSONArray();
         Board board = Board.getInstance();
         board.improvedSetBoard(8);
     }

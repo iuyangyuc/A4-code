@@ -79,4 +79,34 @@ public class JsonLoader {
             e.printStackTrace();
         }
     }
+
+    public static void loadDragonJSONArray() {
+        try {
+            String content = new String(Files.readAllBytes(Paths.get(pathPrefix + "dragon.json")));
+            JSONArray jsonArray = new JSONArray(content);
+            JsonArrayHolder.getInstance().setDragonJSONArray(jsonArray);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void loadSpiritJSONArray() {
+        try {
+            String content = new String(Files.readAllBytes(Paths.get(pathPrefix + "spirit.json")));
+            JSONArray jsonArray = new JSONArray(content);
+            JsonArrayHolder.getInstance().setSpiritJSONArray(jsonArray);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void loadExoskeletonJSONArray() {
+        try {
+            String content = new String(Files.readAllBytes(Paths.get(pathPrefix + "exoskeleton.json")));
+            JSONArray jsonArray = new JSONArray(content);
+            JsonArrayHolder.getInstance().setExoskeletonJSONArray(jsonArray);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }

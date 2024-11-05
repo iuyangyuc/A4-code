@@ -1,0 +1,88 @@
+[
+  {
+    "name": "Desghidorrah",
+    "level": 3,
+    "damage": 300,
+    "defense": 400,
+    "dodge_chance": 35
+  },
+  {
+    "name": "Chrysophylax",
+    "level": 2,
+    "damage": 200,
+    "defense": 500,
+    "dodge_chance": 20
+  },
+  {
+    "name": "BunsenBurner",
+    "level": 4,
+    "damage": 400,
+    "defense": 500,
+    "dodge_chance": 45
+  },
+  {
+    "name": "Natsunomeryu",
+    "level": 1,
+    "damage": 100,
+    "defense": 200,
+    "dodge_chance": 10
+  },
+  {
+    "name": "TheScaleless",
+    "level": 7,
+    "damage": 700,
+    "defense": 600,
+    "dodge_chance": 75
+  },
+  {
+    "name": "Kas-Ethelinh",
+    "level": 5,
+    "damage": 600,
+    "defense": 500,
+    "dodge_chance": 60
+  },
+  {
+    "name": "Alexstraszan",
+    "level": 10,
+    "damage": 1000,
+    "defense": 9000,
+    "dodge_chance": 55
+  },
+  {
+    "name": "Phaarthurnax",
+    "level": 6,
+    "damage": 600,
+    "defense": 700,
+    "dodge_chance": 60
+  },
+  {
+    "name": "D-Maleficent",
+    "level": 9,
+    "damage": 900,
+    "defense": 950,
+    "dodge_chance": 85
+  },
+  {
+    "name": "TheWeatherbe",
+    "level": 8,
+    "damage": 800,
+    "defense": 900,
+    "dodge_chance": 80
+  },
+  {
+    "name": "Igneel",
+    "level": 6,
+    "damage": 600,
+    "defense": 400,
+    "dodge_chance": 60
+  },
+  {
+    "name": "BlueEyesWhite",
+    "level": 9,
+    "damage": 900,
+    "defense": 600,
+    "dodge_chance": 75
+  }
+]
+
+

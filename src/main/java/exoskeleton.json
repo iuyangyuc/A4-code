@@ -1,0 +1,86 @@
+[
+  {
+    "name": "Cyrrollalee",
+    "level": 7,
+    "damage": 700,
+    "defense": 800,
+    "dodge_chance": 75
+  },
+  {
+    "name": "Brandobaris",
+    "level": 3,
+    "damage": 350,
+    "defense": 450,
+    "dodge_chance": 30
+  },
+  {
+    "name": "BigBad-Wolf",
+    "level": 1,
+    "damage": 150,
+    "defense": 250,
+    "dodge_chance": 15
+  },
+  {
+    "name": "WickedWitch",
+    "level": 2,
+    "damage": 250,
+    "defense": 350,
+    "dodge_chance": 25
+  },
+  {
+    "name": "Aasterinian",
+    "level": 4,
+    "damage": 400,
+    "defense": 500,
+    "dodge_chance": 45
+  },
+  {
+    "name": "Chronepsish",
+    "level": 6,
+    "damage": 650,
+    "defense": 750,
+    "dodge_chance": 60
+  },
+  {
+    "name": "Kiaransalee",
+    "level": 8,
+    "damage": 850,
+    "defense": 950,
+    "dodge_chance": 85
+  },
+  {
+    "name": "St-Shargaas",
+    "level": 5,
+    "damage": 550,
+    "defense": 650,
+    "dodge_chance": 55
+  },
+  {
+    "name": "Merrshaullk",
+    "level": 10,
+    "damage": 1000,
+    "defense": 900,
+    "dodge_chance": 55
+  },
+  {
+    "name": "St-Yeenoghu",
+    "level": 9,
+    "damage": 950,
+    "defense": 850,
+    "dodge_chance": 90
+  },
+  {
+    "name": "DocOck",
+    "level": 6,
+    "damage": 600,
+    "defense": 600,
+    "dodge_chance": 55
+  },
+  {
+    "name": "Exodia",
+    "level": 10,
+    "damage": 1000,
+    "defense": 1000,
+    "dodge_chance": 50
+  }
+]

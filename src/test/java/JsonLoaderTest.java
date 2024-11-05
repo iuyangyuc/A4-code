@@ -18,6 +18,9 @@ class JsonLoaderTest {
         JsonLoader.loadWeaponJSONArray();
         JsonLoader.loadSpellJSONArray();
         JsonLoader.loadArmorJSONArray();
+        JsonLoader.loadDragonJSONArray();
+        JsonLoader.loadExoskeletonJSONArray();
+        JsonLoader.loadSpiritJSONArray();
     }
 
     @Test
@@ -255,6 +258,16 @@ class JsonLoaderTest {
         System.out.println(market.getMarket());
         System.out.println();
         System.out.println(heroRegistry.getHero("Eunoia_Cyn"));
+    }
+
+    @Test
+    void buildMonsterPartyTest() {
+        GameUtlity gameUtlity = new GameUtlity();
+        MonsterRegistry monsterRegistry = MonsterRegistry.getInstance();
+        gameUtlity.createMonsterParty(3, 5);
+        for(HashMap.Entry<String, Monster> entry : monsterRegistry.getMonsterMap().entrySet()){
+            System.out.println(entry.getValue());
+        }
     }
 
 }

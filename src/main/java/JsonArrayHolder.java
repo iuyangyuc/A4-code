@@ -10,6 +10,9 @@ public class JsonArrayHolder {
     private JSONArray weaponJSONArray;
     private JSONArray spellJSONArray;
     private JSONArray armorJSONArray;
+    private JSONArray spiritJSONArray;
+    private JSONArray dragonJSONArray;
+    private JSONArray exoskeletonJSONArray;
 
     private JsonArrayHolder() {
     }
@@ -75,5 +78,29 @@ public class JsonArrayHolder {
 
     public void setArmorJSONArray(JSONArray armorJSONArray) {
         this.armorJSONArray = armorJSONArray;
+    }
+
+    public JSONArray getSpiritJSONArray() {
+        return spiritJSONArray;
+    }
+
+    public void setSpiritJSONArray(JSONArray spiritJSONArray) {
+        this.spiritJSONArray = spiritJSONArray;
+    }
+
+    public JSONArray getDragonJSONArray() {
+        return dragonJSONArray;
+    }
+
+    public void setDragonJSONArray(JSONArray dragonJSONArray) {
+        this.dragonJSONArray = dragonJSONArray;
+    }
+
+    public JSONArray getExoskeletonJSONArray() {
+        return exoskeletonJSONArray;
+    }
+
+    public void setExoskeletonJSONArray(JSONArray exoskeletonJSONArray) {
+        this.exoskeletonJSONArray = exoskeletonJSONArray;
     }
 }
