@@ -32,4 +32,8 @@ public interface Hero {
     void addInventory(String item_name, Object item);
     void removeInventory(String item_name);
     void EditWeapon(Weapon weapon, int hand, boolean add);
+    void EditArmor(Armor armor, boolean add);
+    HashMap<String, Object> getEquipped();
+    void addEquipped(String item_name, Object item);
+    void removeEquipped(String item_name);
 }

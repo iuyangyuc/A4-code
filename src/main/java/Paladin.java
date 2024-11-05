@@ -15,6 +15,7 @@ public class Paladin implements Hero {
     private double Hp;
     private double Xp;
     private HashMap<String, Object> Inventory;
+    private HashMap<String, Object> Equipped;
     private String type;
     private int empty_hand;
 
@@ -29,6 +30,7 @@ public class Paladin implements Hero {
         this.Hp = level * 100;
         this.Xp = 0;
         this.Inventory = new HashMap<String, Object>();
+        this.Equipped = new HashMap<String, Object>();
         this.type = type;
         this.empty_hand = 2;
     }
@@ -45,6 +47,7 @@ public class Paladin implements Hero {
         this.Hp = level * 100;
         this.Xp = 0;
         this.Inventory = new HashMap<String, Object>();
+        this.Equipped = new HashMap<String, Object>();
         this.empty_hand = 2;
     }
 
@@ -60,6 +63,7 @@ public class Paladin implements Hero {
     public HashMap<String, Object> getInventory() { return Inventory; }
     public String getType() { return type; }
     public int getEmpty_hand() { return empty_hand; }
+    public HashMap<String, Object> getEquipped() { return Equipped; }
 
 
     public void setName(String name) { this.name = name; }
@@ -74,6 +78,7 @@ public class Paladin implements Hero {
     public void setInventory(HashMap<String, Object> Inventory) { this.Inventory = Inventory; }
     public void setType(String type) { this.type = type; }
     public void setEmpty_hand(int empty_hand) { this.empty_hand = empty_hand; }
+    public void setEquipped(HashMap<String, Object> Equipped) { this.Equipped = Equipped; }
 
     public void levelUp() {
         GameUtlity gameUtlity = new GameUtlity();
@@ -107,6 +112,14 @@ public class Paladin implements Hero {
 
     public void removeInventory(String item_name) {
         this.Inventory.remove(item_name);
+    }
+
+    public void addEquipped(String item_name, Object item) {
+        this.Equipped.put(item_name, item);
+    }
+
+    public void removeEquipped(String item_name) {
+        this.Equipped.remove(item_name);
     }
 
     public void EditWeapon(Weapon weapon, int hand, boolean add) {
