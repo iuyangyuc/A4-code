@@ -228,7 +228,8 @@ public class GameStateMachine {
                             gameUtlity.displayInventory(heroChoice);
                             String spellChoice = Main.SCANNER.next();
                             while (!heroRegistry.getHero(heroChoice).getInventory().containsKey(spellChoice)
-                                    && !(heroRegistry.getHero(heroChoice).getInventory().get(spellChoice) instanceof Spell)) {
+                                    && !(heroRegistry.getHero(heroChoice).getInventory().get(spellChoice) instanceof Spell)
+                                    && battleUtlity.getLeftUsage(heroRegistry.getHero(heroChoice), spellChoice) <= 0) {
                                 System.out.println("Invalid spell name. Please enter a valid spell name:");
                                 spellChoice = Main.SCANNER.next();
                             }
@@ -239,7 +240,8 @@ public class GameStateMachine {
                             gameUtlity.displayInventory(heroChoice);
                             String potionChoice = Main.SCANNER.next();
                             while (!heroRegistry.getHero(heroChoice).getInventory().containsKey(potionChoice)
-                                    && !(heroRegistry.getHero(heroChoice).getInventory().get(potionChoice) instanceof Potion)) {
+                                    && !(heroRegistry.getHero(heroChoice).getInventory().get(potionChoice) instanceof Potion)
+                                    && battleUtlity.getLeftUsage(heroRegistry.getHero(heroChoice), potionChoice) <= 0) {
                                 System.out.println("Invalid potion name. Please enter a valid potion name:");
                                 potionChoice = Main.SCANNER.next();
                             }

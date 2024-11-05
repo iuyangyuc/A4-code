@@ -6,12 +6,14 @@ public class Armor {
     private int cost;
     private int requiredLevel;
     private int defense;
+    private int usage;
 
     public Armor(String name, int cost, int requiredLevel, int defense) {
         this.name = name;
         this.cost = cost;
         this.requiredLevel = requiredLevel;
         this.defense = defense;
+        this.usage = 10;
     }
 
     public Armor(ArrayList<Object> attribute) {
@@ -19,6 +21,7 @@ public class Armor {
         this.cost = (int) attribute.get(1);
         this.requiredLevel = (int) attribute.get(2);
         this.defense = (int) attribute.get(3);
+        this.usage = 10;
     }
 
     public String getName() {
@@ -51,6 +54,14 @@ public class Armor {
 
     public void setRequiredLevel(int requiredLevel) {
         this.requiredLevel = requiredLevel;
+    }
+
+    public int getUsage() {
+        return usage;
+    }
+
+    public void setUsage(int usage) {
+        this.usage = usage;
     }
 
     @Override

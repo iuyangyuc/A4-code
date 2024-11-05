@@ -8,4 +8,6 @@ public interface Spell {
     int getRequiredLevel();
     int getCost();
     String getName();
+
+    void setUsage(int usage);
 }

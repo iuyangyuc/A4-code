@@ -270,4 +270,29 @@ class JsonLoaderTest {
         }
     }
 
+    @Test
+    void MinusUsage(){
+        GameUtlity gameUtlity = new GameUtlity();
+        BattleUtlity battleUtlity = new BattleUtlity();
+        HeroFactory heroFactory = new WarriorFactory();
+        HeroRegistry heroRegistry = HeroRegistry.getInstance();
+
+        ArrayList<Object> attributes = gameUtlity.getHeroInitialInfo("Eunoia_Cyn", gameUtlity.isHeroNameValid("Eunoia_Cyn"));
+        ArrayList<Object> attributes2 = gameUtlity.getHeroInitialInfo("Undefeated_Yoj", gameUtlity.isHeroNameValid("Undefeated_Yoj"));
+        Hero hero = heroFactory.createHero(attributes);
+        Hero hero2 = heroFactory.createHero(attributes2);
+
+        heroRegistry.addHero("Eunoia_Cyn", hero);
+        heroRegistry.addHero("Undefeated_Yoj", hero2);
+
+        Potion p1 = new Potion("Health Potion", 10, 10, 10, null, 10);
+        hero.addInventory("Health Potion", p1);
+
+        System.out.println(heroRegistry.getHero("Eunoia_Cyn"));
+        battleUtlity.minusUsage(hero, "Health Potion");
+
+        System.out.println(heroRegistry.getHero("Eunoia_Cyn"));
+    }
+
+
 }

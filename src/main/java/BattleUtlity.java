@@ -88,6 +88,7 @@ public class BattleUtlity {
     }
 
     public void usePotion(Hero hero, String potion_name){
+        minusUsage(hero, potion_name);
         if(hero.getInventory().containsKey(potion_name)){
             if(hero.getInventory().get(potion_name) instanceof Potion){
                 Potion potion = (Potion) hero.getInventory().get(potion_name);
@@ -132,6 +133,7 @@ public class BattleUtlity {
     }
 
     public void useSpell(Hero hero, String spell_name, Monster monster){
+        minusUsage(hero, spell_name);
         if(hero.getInventory().containsKey(spell_name)){
             if(hero.getInventory().get(spell_name) instanceof Spell){
                 Spell spell = (Spell) hero.getInventory().get(spell_name);
@@ -150,6 +152,58 @@ public class BattleUtlity {
         sb.append("Hero: ").append(hero.getName()).append(" used spell: ").append(spell_name);
         sb.append(" on monster: ").append(monster.getName()).append(" with damage: ").append(spell.getDamage());
         System.out.println(sb);
+    }
+
+    public void minusUsage(Hero hero, String name){
+        if(hero.getInventory().get(name) instanceof Weapon){
+            Weapon weapon = (Weapon) hero.getInventory().get(name);
+            weapon.setUsage(weapon.getUsage() - 1);
+        }
+        else if(hero.getInventory().get(name) instanceof Armor){
+            Armor armor = (Armor) hero.getInventory().get(name);
+            armor.setUsage(armor.getUsage() - 1);
+        }
+        else if(hero.getInventory().get(name) instanceof Potion){
+            Potion potion = (Potion) hero.getInventory().get(name);
+            potion.setUsage(potion.getUsage() - 1);
+        }
+        else if (hero.getInventory().get(name) instanceof Spell){
+            Spell spell = (Spell) hero.getInventory().get(name);
+            spell.setUsage(spell.getUsage() - 1);
+        }
+    }
+
+    public void removeDeadMonsters(){
+        MonsterRegistry monsterRegistry = MonsterRegistry.getInstance();
+        List<String> deadMonsters = new ArrayList<>();
+        for(String key : monsterRegistry.getMonsterMap().keySet()){
+            if(monsterRegistry.getMonster(key).getHp() <= 0){
+                deadMonsters.add(key);
+            }
+        }
+        for(String key : deadMonsters){
+            monsterRegistry.removeMonster(key);
+        }
+    }
+
+    public int getLeftUsage(Hero hero, String name){
+        if(hero.getInventory().get(name) instanceof Weapon){
+            Weapon weapon = (Weapon) hero.getInventory().get(name);
+            return weapon.getUsage();
+        }
+        else if(hero.getInventory().get(name) instanceof Armor){
+            Armor armor = (Armor) hero.getInventory().get(name);
+            return armor.getUsage();
+        }
+        else if(hero.getInventory().get(name) instanceof Potion){
+            Potion potion = (Potion) hero.getInventory().get(name);
+            return potion.getUsage();
+        }
+        else if (hero.getInventory().get(name) instanceof Spell){
+            Spell spell = (Spell) hero.getInventory().get(name);
+            return spell.getUsage();
+        }
+        return 0;
     }
 
     public void endBattle(){

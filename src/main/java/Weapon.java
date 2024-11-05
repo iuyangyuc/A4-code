@@ -7,6 +7,7 @@ public class Weapon {
     private int requiredLevel;
     private int damage;
     private int requiredHands;
+    private int usage;
 
     public Weapon(String name, int cost, int requiredLevel, int damage, int requiredHands) {
         this.name = name;
@@ -14,6 +15,7 @@ public class Weapon {
         this.requiredLevel = requiredLevel;
         this.damage = damage;
         this.requiredHands = requiredHands;
+        this.usage = 10;
     }
 
     public Weapon(ArrayList<Object> attribute) {
@@ -22,6 +24,7 @@ public class Weapon {
         this.requiredLevel = (int) attribute.get(2);
         this.damage = (int) attribute.get(3);
         this.requiredHands = (int) attribute.get(4);
+        this.usage = 10;
     }
 
     public String getName() {
@@ -62,6 +65,14 @@ public class Weapon {
 
     public void setRequiredHands(int requiredHands) {
         this.requiredHands = requiredHands;
+    }
+
+    public int getUsage() {
+        return usage;
+    }
+
+    public void setUsage(int usage) {
+        this.usage = usage;
     }
 
     @Override
