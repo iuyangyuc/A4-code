@@ -121,12 +121,14 @@ public class Warrior implements Hero {
             if(hand == 2) {
                 this.strength += weapon.getDamage() * 0.5;
             }
+            weapon.setHandUsed(hand);
         } else {
             this.empty_hand += hand;
             this.strength -= weapon.getDamage();
             if(hand == 2) {
                 this.strength -= weapon.getDamage() * 0.5;
             }
+            weapon.setHandUsed(weapon.getHandUsed() - hand);
         }
     }
 

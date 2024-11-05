@@ -92,7 +92,7 @@ public class BattleUtlity {
         if(hero.getInventory().containsKey(potion_name)){
             if(hero.getInventory().get(potion_name) instanceof Potion){
                 Potion potion = (Potion) hero.getInventory().get(potion_name);
-                hero.removeInventory(potion_name);
+                //hero.removeInventory(potion_name);
                 ArrayList<Object> l = potion.getAttribute();
                 for(Object o : l){
                     if(o instanceof String){
@@ -137,8 +137,8 @@ public class BattleUtlity {
         if(hero.getInventory().containsKey(spell_name)){
             if(hero.getInventory().get(spell_name) instanceof Spell){
                 Spell spell = (Spell) hero.getInventory().get(spell_name);
-                hero.removeInventory(spell_name);
-                monster.setHp(monster.getHp() - spell.getDamage());
+                //hero.removeInventory(spell_name);
+                monster.setHp(monster.getHp() - spell.getDamage() * hero.getDexterity() * 0.001 - spell.getDamage());
             }
             else{
                 System.out.println("This is not a spell");

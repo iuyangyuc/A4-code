@@ -198,7 +198,7 @@ public class GameStateMachine {
             currentState = GameState.BATTLE;
             System.out.println("Encounter enemies.");
             int avgLevelDiff = gameUtlity.differenceToNearestInt(gameUtlity.HeroAvgLevel(), gameUtlity.HeroInitAvgLevel());
-            gameUtlity.createMonsterParty(heroRegistry.getHeroMap().size() + Main.difficulty, avgLevelDiff + Main.difficulty);
+            //gameUtlity.createMonsterParty(heroRegistry.getHeroMap().size() + Main.difficulty, avgLevelDiff + Main.difficulty);
             boolean isBattleOver = false;
             int turn = 0;
             while (!isBattleOver) {
@@ -232,6 +232,10 @@ public class GameStateMachine {
                                     && battleUtlity.getLeftUsage(heroRegistry.getHero(heroChoice), spellChoice) <= 0) {
                                 System.out.println("Invalid spell name. Please enter a valid spell name:");
                                 spellChoice = Main.SCANNER.next();
+                            }
+                            if (heroRegistry.getHero(heroChoice).getMana() < ((Spell) heroRegistry.getHero(heroChoice).getInventory().get(spellChoice)).getManaCost()) {
+                                System.out.println("Not enough mana to use the spell.");
+                                break;
                             }
                             battleUtlity.useSpell(heroRegistry.getHero(heroChoice), spellChoice, monsterRegistry.getMonster(monsterChoice));
                             break;
@@ -277,9 +281,8 @@ public class GameStateMachine {
                             if (heroRegistry.getHero(heroChoice).getEquipped().get(itemChoice2) instanceof Armor) {
                                 battleUtlity.unEquipArmor(heroRegistry.getHero(heroChoice), itemChoice2);
                             }
-                            else {
+                            if (heroRegistry.getHero(heroChoice).getEquipped().get(itemChoice2) instanceof Weapon) {
                                 int hand2 = gameUtlity.takeValidInput(1, 2);
-                                //TODO
                                 battleUtlity.unEquipWeapon(heroRegistry.getHero(heroChoice), itemChoice2, hand2);
                             }
                             break;
@@ -292,6 +295,7 @@ public class GameStateMachine {
                     }
                 }
                 if (turn % 2 == 1) {
+                    battleUtlity.removeDeadMonsters();
                     Random random = new Random();
                     for (Monster monster : monsterRegistry.getMonsterMap().values()) {
                         if (monster.getHp() <= 0) {
@@ -400,7 +404,7 @@ public class GameStateMachine {
                         System.out.println("Invalid item name. Please enter a valid item name:");
                         item_name = Main.SCANNER.next();
                     }
-                    if(heroRegistry.getHero(heroChoice).getGold() < market.getItemCost(item_name) / 2){
+                    if(heroRegistry.getHero(heroChoice).getGold() < (double) market.getItemCost(item_name) / 2){
                         System.out.println("Not enough gold to repair the item.");
                         continue;
                     }

@@ -142,7 +142,6 @@ public class Market {
         hero.setGold(hero.getGold() + cost/2);
     }
 
-    //TODO
     public void repairItem(String name, String hero_name){
         Hero hero = heroRegistry.getHero(hero_name);
         double cost = 0;
@@ -153,10 +152,10 @@ public class Market {
             ((Potion) hero.getInventory().get(name)).setUsage(2);
         }
         else if(hero.getInventory().get(name) instanceof Weapon){
-            cost = ((Weapon) hero.getInventory().get(name)).getCost();
+            //((Weapon) hero.getInventory().get(name)).setUsage(2);
         }
         else if(hero.getInventory().get(name) instanceof Armor){
-            cost = ((Armor) hero.getInventory().get(name)).getCost();
+            //cost = ((Armor) hero.getInventory().get(name)).getCost();
         }
     }
 
