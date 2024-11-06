@@ -294,5 +294,86 @@ class JsonLoaderTest {
         System.out.println(heroRegistry.getHero("Eunoia_Cyn"));
     }
 
+    @Test
+    void EquipmetTest(){
+        GameUtlity gameUtlity = new GameUtlity();
+        BattleUtlity battleUtlity = new BattleUtlity();
+        HeroFactory heroFactory = new WarriorFactory();
+        HeroRegistry heroRegistry = HeroRegistry.getInstance();
+
+        ArrayList<Object> attributes = gameUtlity.getHeroInitialInfo("Eunoia_Cyn", gameUtlity.isHeroNameValid("Eunoia_Cyn"));
+        ArrayList<Object> attributes2 = gameUtlity.getHeroInitialInfo("Undefeated_Yoj", gameUtlity.isHeroNameValid("Undefeated_Yoj"));
+        Hero hero = heroFactory.createHero(attributes);
+        Hero hero2 = heroFactory.createHero(attributes2);
+
+        heroRegistry.addHero("Eunoia_Cyn", hero);
+        heroRegistry.addHero("Undefeated_Yoj", hero2);
+
+        Weapon w1 = new Weapon("Sword", 10, 10, 10, 1);
+        hero.addInventory("Sword", w1);
+
+        System.out.println(heroRegistry.getHero("Eunoia_Cyn"));
+
+        battleUtlity.equipWeapon(hero, "Sword", 1);
+
+        System.out.println(heroRegistry.getHero("Eunoia_Cyn"));
+
+        battleUtlity.unEquipWeapon(hero, "Sword");
+
+        System.out.println(heroRegistry.getHero("Eunoia_Cyn"));
+    }
+
+    @Test
+    void EquipmetTest2(){
+        GameUtlity gameUtlity = new GameUtlity();
+        BattleUtlity battleUtlity = new BattleUtlity();
+        HeroFactory heroFactory = new WarriorFactory();
+        HeroRegistry heroRegistry = HeroRegistry.getInstance();
+
+        ArrayList<Object> attributes = gameUtlity.getHeroInitialInfo("Eunoia_Cyn", gameUtlity.isHeroNameValid("Eunoia_Cyn"));
+        ArrayList<Object> attributes2 = gameUtlity.getHeroInitialInfo("Undefeated_Yoj", gameUtlity.isHeroNameValid("Undefeated_Yoj"));
+        Hero hero = heroFactory.createHero(attributes);
+        Hero hero2 = heroFactory.createHero(attributes2);
+
+        heroRegistry.addHero("Eunoia_Cyn", hero);
+        heroRegistry.addHero("Undefeated_Yoj", hero2);
+
+        System.out.println(heroRegistry.getHero("Eunoia_Cyn"));
+
+        Armor a1 = new Armor("Shield", 10, 10, 1);
+        hero.addInventory("Shield", a1);
+
+        battleUtlity.equipArmor(hero, "Shield");
+
+        System.out.println(heroRegistry.getHero("Eunoia_Cyn"));
+
+        battleUtlity.unEquipArmor(hero, "Shield");
+
+        System.out.println(heroRegistry.getHero("Eunoia_Cyn"));
+    }
+
+    @Test
+    void leftUsage(){
+        GameUtlity gameUtlity = new GameUtlity();
+        BattleUtlity battleUtlity = new BattleUtlity();
+        HeroFactory heroFactory = new WarriorFactory();
+        HeroRegistry heroRegistry = HeroRegistry.getInstance();
+
+        ArrayList<Object> attributes = gameUtlity.getHeroInitialInfo("Eunoia_Cyn", gameUtlity.isHeroNameValid("Eunoia_Cyn"));
+        ArrayList<Object> attributes2 = gameUtlity.getHeroInitialInfo("Undefeated_Yoj", gameUtlity.isHeroNameValid("Undefeated_Yoj"));
+        Hero hero = heroFactory.createHero(attributes);
+        Hero hero2 = heroFactory.createHero(attributes2);
+
+        heroRegistry.addHero("Eunoia_Cyn", hero);
+        heroRegistry.addHero("Undefeated_Yoj", hero2);
+
+        Potion p1 = new Potion("Health Potion", 10, 10, 10, null, 10);
+        hero.addInventory("Health Potion", p1);
+
+        System.out.println(battleUtlity.getLeftUsage(hero, "Health"));
+    }
+
+
+
 
 }

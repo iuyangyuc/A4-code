@@ -175,6 +175,9 @@ public class Market {
         else if(market.get(item_name) instanceof Spell){
             return ((Spell) market.get(item_name)).getCost();
         }
+        else if(market.get(item_name) instanceof Armor){
+            return ((Armor) market.get(item_name)).getCost();
+        }
         return 0;
     }
 
@@ -187,6 +190,9 @@ public class Market {
         }
         else if(market.get(item_name) instanceof Spell){
             return ((Spell) market.get(item_name)).getRequiredLevel();
+        }
+        else if (market.get(item_name) instanceof Armor){
+            return ((Armor) market.get(item_name)).getRequiredLevel();
         }
         return 0;
     }

@@ -245,20 +245,22 @@ public class GameUtlity {
         JSONArray spiritArray = JsonArrayHolder.getInstance().getSpiritJSONArray();
         MonsterRegistry monsterRegistry = MonsterRegistry.getInstance();
 
-        for (int i = 0; i < monsterNumber; i++) {
+        for (int i = 0; i < monsterNumber;) {
             int type = random.nextInt(Integer.MAX_VALUE);
-            System.out.println(type);
             if (type % 3 == 0) {
                 Monster monster = monsterFactory.createMonster(getMonsterInfo(dragonArray.getJSONObject(type % dragonArray.length()).getString("name"), dragonArray));
                 monsterRegistry.addMonster(dragonArray.getJSONObject(type % dragonArray.length()).getString("name"), monster);
+                i++;
             }
             else if (type % 3 == 1) {
                 Monster monster = monsterFactory1.createMonster(getMonsterInfo(exoskeletonArray.getJSONObject(type % exoskeletonArray.length()).getString("name"), exoskeletonArray));
                 monsterRegistry.addMonster(exoskeletonArray.getJSONObject(type % exoskeletonArray.length()).getString("name"), monster);
+                i++;
             }
             else {
                 Monster monster = monsterFactory2.createMonster(getMonsterInfo(spiritArray.getJSONObject(type % spiritArray.length()).getString("name"), spiritArray));
                 monsterRegistry.addMonster(spiritArray.getJSONObject(type % spiritArray.length()).getString("name"), monster);
+                i++;
             }
         }
 

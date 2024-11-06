@@ -3,62 +3,51 @@ import java.util.List;
 
 public class BattleUtlity {
 
+    private int monsterNumber = 0;
+    private double monsterAvgLevel = 0;
+
     public void equipWeapon(Hero hero, String weapon_name, int hand){
         if(hero.getInventory().containsKey(weapon_name)){
-            if(hero.getInventory().get(weapon_name) instanceof Weapon){
-                Weapon weapon = (Weapon) hero.getInventory().get(weapon_name);
-                if(hero.getEmpty_hand() >= hand || hero.getEmpty_hand() < weapon.getRequiredHands()){
-                    hero.EditWeapon(weapon, hand, true);
-                    hero.removeInventory(weapon_name);
-                    hero.addEquipped(weapon_name, weapon);
-                }
-                else{
-                    System.out.println("Not enough empty hands");
-                }
+            Weapon weapon = (Weapon) hero.getInventory().get(weapon_name);
+            if(hero.getEmpty_hand() >= hand || hero.getEmpty_hand() >= weapon.getRequiredHands()){
+                weapon.setHandUsed(hand);
+                hero.EditWeapon(weapon, hand, true);
+                hero.removeInventory(weapon_name);
+                hero.addEquipped(weapon_name, weapon);
+                StringBuilder sb = new StringBuilder();
+                sb.append("Hero: ").append(hero.getName()).append(" equipped weapon: ").append(weapon_name).append(" in hand: ").append(hand);
+                System.out.println(sb);
             }
             else{
-                System.out.println("This is not a weapon");
+                System.out.println("Not enough empty hands");
             }
         }
         else{
             System.out.println("This weapon is not in the inventory");
         }
-        StringBuilder sb = new StringBuilder();
-        sb.append("Hero: ").append(hero.getName()).append(" equipped weapon: ").append(weapon_name).append(" in hand: ").append(hand);
-        System.out.println(sb);
     }
 
-    public void unEquipWeapon(Hero hero, String weapon_name, int hand){
-        if(hero.getEquipped().containsKey(weapon_name) || hero.getEmpty_hand() + hand > 2){
-            if(hero.getInventory().get(weapon_name) instanceof Weapon){
-                Weapon weapon = (Weapon) hero.getInventory().get(weapon_name);
-                hero.EditWeapon(weapon, hand, false);
-                hero.removeEquipped(weapon_name);
-                hero.addInventory(weapon_name, weapon);
-            }
-            else{
-                System.out.println("This is not a weapon");
-            }
+    public void unEquipWeapon(Hero hero, String weapon_name){
+        if(hero.getEquipped().containsKey(weapon_name)){
+            Weapon weapon = (Weapon) hero.getEquipped().get(weapon_name);
+            StringBuilder sb = new StringBuilder();
+            sb.append("Hero: ").append(hero.getName()).append(" unequipped weapon: ").append(weapon_name).append(" from hand: ").append(weapon.getHandUsed());
+            System.out.println(sb);
+            hero.EditWeapon(weapon, weapon.getHandUsed(), false);
+            hero.removeEquipped(weapon_name);
+            hero.addInventory(weapon_name, weapon);
         }
         else{
             System.out.println("Wrong hand or weapon name");
         }
-        StringBuilder sb = new StringBuilder();
-        sb.append("Hero: ").append(hero.getName()).append(" unequipped weapon: ").append(weapon_name).append(" from hand: ").append(hand);
-        System.out.println(sb);
     }
 
     public void equipArmor(Hero hero, String armor_name){
         if(hero.getInventory().containsKey(armor_name)){
-            if(hero.getInventory().get(armor_name) instanceof Armor){
-                Armor armor = (Armor) hero.getInventory().get(armor_name);
-                hero.EditArmor(armor, true);
-                hero.removeInventory(armor_name);
-                hero.addEquipped(armor_name, armor);
-            }
-            else{
-                System.out.println("This is not an armor");
-            }
+            Armor armor = (Armor) hero.getInventory().get(armor_name);
+            hero.EditArmor(armor, true);
+            hero.removeInventory(armor_name);
+            hero.addEquipped(armor_name, armor);
         }
         else{
             System.out.println("This armor is not in the inventory");
@@ -70,15 +59,10 @@ public class BattleUtlity {
 
     public void unEquipArmor(Hero hero, String armor_name){
         if(hero.getEquipped().containsKey(armor_name)){
-            if(hero.getInventory().get(armor_name) instanceof Armor){
-                Armor armor = (Armor) hero.getInventory().get(armor_name);
-                hero.EditArmor(armor, false);
-                hero.removeEquipped(armor_name);
-                hero.addInventory(armor_name, armor);
-            }
-            else{
-                System.out.println("This is not an armor");
-            }
+            Armor armor = (Armor) hero.getEquipped().get(armor_name);
+            hero.EditArmor(armor, false);
+            hero.removeEquipped(armor_name);
+            hero.addInventory(armor_name, armor);
         }
         else{
             System.out.println("This armor is not in the inventory");
@@ -182,7 +166,7 @@ public class BattleUtlity {
             }
         }
         for(String key : deadMonsters){
-            monsterRegistry.removeMonster(key);
+            monsterRegistry.getMonsterMap().remove(key);
         }
     }
 
@@ -206,15 +190,18 @@ public class BattleUtlity {
         return 0;
     }
 
-    public void endBattle(){
-        HeroRegistry heroRegistry = HeroRegistry.getInstance();
+    public double getMonsterAvgLevel(){
         MonsterRegistry monsterRegistry = MonsterRegistry.getInstance();
-        int average_Monster_Level = 0;
-
+        double sum = 0;
         for(String key : monsterRegistry.getMonsterMap().keySet()){
-            average_Monster_Level += monsterRegistry.getMonster(key).getLevel();
+            sum += monsterRegistry.getMonster(key).getLevel();
         }
-        average_Monster_Level = average_Monster_Level / monsterRegistry.getMonsterMap().size();
+        monsterAvgLevel = sum / monsterRegistry.getMonsterMap().size();
+        return monsterAvgLevel;
+    }
+
+    public void endBattle(int size, double avgLevel){
+        HeroRegistry heroRegistry = HeroRegistry.getInstance();
 
         for(String key : heroRegistry.getHeroMap().keySet()){
             Hero hero = heroRegistry.getHero(key);
@@ -225,8 +212,8 @@ public class BattleUtlity {
             if(hero.getHp() > 0) {
                 hero.setHp(hero.getHp() * 1.1);
                 hero.setMana(hero.getMana() * 1.1);
-                hero.setGold(hero.getGold() + average_Monster_Level * 100);
-                hero.setXp(hero.getXp() + average_Monster_Level * monsterRegistry.getMonsterMap().size() * 2);
+                hero.setGold(hero.getGold() + avgLevel * 100);
+                hero.setXp(hero.getXp() + avgLevel * size * 2);
             }
             ifLevelUp(hero);
         };
@@ -240,25 +227,25 @@ public class BattleUtlity {
     }
 
     public boolean isHeroDoge(Hero hero){
-        double dodgeChance = hero.getAgility() * 0.002;
+        double dodgeChance = hero.getAgility() * 0.0002;
         double random = Math.random();
         return random > dodgeChance;
     }
 
     public boolean isMonsterDoge(Monster monster){
-        double dodgeChance = monster.getDodgeChance() * 0.01;
+        double dodgeChance = monster.getDodgeChance() * 0.001;
         double random = Math.random();
         return random > dodgeChance;
     }
 
     public double heroAttackDamage(Hero hero, Monster monster) {
-        double damage = hero.getStrength() * 0.05;
+        double damage = hero.getStrength() * 0.1;
         double defense = monster.getDefense() * 0.02;
         return damage - defense;
     }
 
     public double monsterAttackDamage(Monster monster, Hero hero) {
-        double damage = monster.getDamage() * 0.05;
+        double damage = monster.getDamage() * 0.1;
         double defense = hero.getAgility() * 0.02;
         return damage - defense;
     }

@@ -11,6 +11,8 @@ public class GameStateMachine {
     private int heroNumber;
     HeroRegistry heroRegistry = HeroRegistry.getInstance();
     MonsterRegistry monsterRegistry = MonsterRegistry.getInstance();
+    private int monsterNumber;
+    private double monsterAvgLevel;
 
     public GameStateMachine() {
         this.currentState = GameState.IDLE;
@@ -20,11 +22,6 @@ public class GameStateMachine {
         return currentState;
     }
 
-
-    /*
-    1. initialize game
-    2. create hero list
-     */
     public void startExploring() {
         if (currentState == GameState.IDLE) {
             gameUtlity.InitializeGame();
@@ -199,10 +196,13 @@ public class GameStateMachine {
             System.out.println("Encounter enemies.");
             int avgLevelDiff = gameUtlity.differenceToNearestInt(gameUtlity.HeroAvgLevel(), gameUtlity.HeroInitAvgLevel());
             gameUtlity.createMonsterParty(heroRegistry.getHeroMap().size() + Main.difficulty, avgLevelDiff + Main.difficulty);
+            monsterNumber = heroRegistry.getHeroMap().size() + Main.difficulty;
+            monsterAvgLevel = battleUtlity.getMonsterAvgLevel();
             boolean isBattleOver = false;
             int turn = 0;
             while (!isBattleOver) {
                 if(turn % 2 == 0){
+                    turn++;
                     System.out.println("Monsters in the party:");
                     gameUtlity.displayAllMonsterInfo();
                     System.out.println("Heroes in the party:");
@@ -227,15 +227,32 @@ public class GameStateMachine {
                             System.out.println("Select a spell to use:");
                             gameUtlity.displayInventory(heroChoice);
                             String spellChoice = Main.SCANNER.next();
-                            while (!heroRegistry.getHero(heroChoice).getInventory().containsKey(spellChoice)
-                                    && !(heroRegistry.getHero(heroChoice).getInventory().get(spellChoice) instanceof Spell)
-                                    && battleUtlity.getLeftUsage(heroRegistry.getHero(heroChoice), spellChoice) <= 0) {
-                                System.out.println("Invalid spell name. Please enter a valid spell name:");
-                                spellChoice = Main.SCANNER.next();
-                            }
-                            if (heroRegistry.getHero(heroChoice).getMana() < ((Spell) heroRegistry.getHero(heroChoice).getInventory().get(spellChoice)).getManaCost()) {
-                                System.out.println("Not enough mana to use the spell.");
-                                break;
+                            while (true) {
+                                if( spellChoice.equals("exit")) {
+                                    turn++;
+                                    break;
+                                }
+                                if (heroRegistry.getHero(heroChoice).getInventory().containsKey(spellChoice)) {
+                                    if(heroRegistry.getHero(heroChoice).getInventory().get(spellChoice) instanceof Spell) {
+                                        if(((Spell) heroRegistry.getHero(heroChoice).getInventory().get(spellChoice)).getUsage() > 0) {
+                                            if(heroRegistry.getHero(heroChoice).getMana() > ((Spell) heroRegistry.getHero(heroChoice).getInventory().get(spellChoice)).getManaCost()) {
+                                                break;
+                                            } else {
+                                                System.out.println("Not enough mana to use the spell.");
+                                                spellChoice = Main.SCANNER.next();
+                                            }
+                                        } else {
+                                            System.out.println("Potion is out of usage. Please enter a valid potion name:");
+                                            spellChoice = Main.SCANNER.next();
+                                        }
+                                    } else {
+                                        System.out.println("Invalid potion name. Please enter a valid potion name:");
+                                        spellChoice = Main.SCANNER.next();
+                                    }
+                                } else {
+                                    System.out.println("Invalid potion name. Please enter a valid potion name:");
+                                    spellChoice = Main.SCANNER.next();
+                                }
                             }
                             battleUtlity.useSpell(heroRegistry.getHero(heroChoice), spellChoice, monsterRegistry.getMonster(monsterChoice));
                             break;
@@ -243,11 +260,27 @@ public class GameStateMachine {
                             System.out.println("Select a potion to use:");
                             gameUtlity.displayInventory(heroChoice);
                             String potionChoice = Main.SCANNER.next();
-                            while (!heroRegistry.getHero(heroChoice).getInventory().containsKey(potionChoice)
-                                    && !(heroRegistry.getHero(heroChoice).getInventory().get(potionChoice) instanceof Potion)
-                                    && battleUtlity.getLeftUsage(heroRegistry.getHero(heroChoice), potionChoice) <= 0) {
-                                System.out.println("Invalid potion name. Please enter a valid potion name:");
-                                potionChoice = Main.SCANNER.next();
+                            while (true) {
+                                if( potionChoice.equals("exit")) {
+                                    turn++;
+                                    break;
+                                }
+                                if (heroRegistry.getHero(heroChoice).getInventory().containsKey(potionChoice)) {
+                                    if(heroRegistry.getHero(heroChoice).getInventory().get(potionChoice) instanceof Potion) {
+                                        if(((Potion) heroRegistry.getHero(heroChoice).getInventory().get(potionChoice)).getUsage() > 0) {
+                                            break;
+                                        } else {
+                                            System.out.println("Potion is out of usage. Please enter a valid potion name:");
+                                            potionChoice = Main.SCANNER.next();
+                                        }
+                                    } else {
+                                        System.out.println("Invalid potion name. Please enter a valid potion name:");
+                                        potionChoice = Main.SCANNER.next();
+                                    }
+                                } else {
+                                    System.out.println("Invalid potion name. Please enter a valid potion name:");
+                                    potionChoice = Main.SCANNER.next();
+                                }
                             }
                             battleUtlity.usePotion(heroRegistry.getHero(heroChoice), potionChoice);
                             break;
@@ -255,35 +288,48 @@ public class GameStateMachine {
                             System.out.println("Select an item to equip:");
                             gameUtlity.displayInventory(heroChoice);
                             String itemChoice = Main.SCANNER.next();
-                            while (!heroRegistry.getHero(heroChoice).getInventory().containsKey(itemChoice)
-                                    && (!(heroRegistry.getHero(heroChoice).getInventory().get(itemChoice) instanceof Armor)
-                                    || !(heroRegistry.getHero(heroChoice).getInventory().get(itemChoice) instanceof Weapon))) {
+                            while (!(heroRegistry.getHero(heroChoice).getInventory().get(itemChoice) instanceof Armor)
+                                    && !(heroRegistry.getHero(heroChoice).getInventory().get(itemChoice) instanceof Weapon)) {
                                 System.out.println("Invalid item name. Please enter a valid item name:");
                                 itemChoice = Main.SCANNER.next();
+                                if (itemChoice.equals("exit")) {
+                                    turn++;
+                                    break;
+                                }
                             }
                             if (heroRegistry.getHero(heroChoice).getInventory().get(itemChoice) instanceof Armor) {
+                                System.out.println("armor");
                                 battleUtlity.equipArmor(heroRegistry.getHero(heroChoice), itemChoice);
+                                break;
                             }
-                            else {
+                            if (heroRegistry.getHero(heroChoice).getInventory().get(itemChoice) instanceof Weapon) {
+                                System.out.println("Select hand to equip the weapon:");
                                 int hand = gameUtlity.takeValidInput(1, 2);
-                                //TODO
                                 battleUtlity.equipWeapon(heroRegistry.getHero(heroChoice), itemChoice, hand);
+                                break;
+                            } else {
+                                System.out.println("Invalid item type. Please enter a valid item type.");
                             }
                             break;
                         case 5:
                             System.out.println("Select an item to unequip:");
                             gameUtlity.displayEquippedItems(heroChoice);
                             String itemChoice2 = Main.SCANNER.next();
-                            while (!heroRegistry.getHero(heroChoice).getEquipped().containsKey(itemChoice2)) {
+                            while (!heroRegistry.getHero(heroChoice).getEquipped().containsKey(itemChoice2)
+                                    && !(heroRegistry.getHero(heroChoice).getEquipped().get(itemChoice2) instanceof Armor)
+                                    && !(heroRegistry.getHero(heroChoice).getEquipped().get(itemChoice2) instanceof Weapon)) {
                                 System.out.println("Invalid item name. Please enter a valid item name:");
                                 itemChoice2 = Main.SCANNER.next();
+                                if (itemChoice2.equals("exit")) {
+                                    turn++;
+                                    break;
+                                }
                             }
                             if (heroRegistry.getHero(heroChoice).getEquipped().get(itemChoice2) instanceof Armor) {
                                 battleUtlity.unEquipArmor(heroRegistry.getHero(heroChoice), itemChoice2);
                             }
                             if (heroRegistry.getHero(heroChoice).getEquipped().get(itemChoice2) instanceof Weapon) {
-                                int hand2 = gameUtlity.takeValidInput(1, 2);
-                                battleUtlity.unEquipWeapon(heroRegistry.getHero(heroChoice), itemChoice2, hand2);
+                                battleUtlity.unEquipWeapon(heroRegistry.getHero(heroChoice), itemChoice2);
                             }
                             break;
                         case 6:
@@ -295,19 +341,21 @@ public class GameStateMachine {
                     }
                 }
                 if (turn % 2 == 1) {
-                    battleUtlity.removeDeadMonsters();
+                    turn++;
                     Random random = new Random();
                     for (Monster monster : monsterRegistry.getMonsterMap().values()) {
                         if (monster.getHp() <= 0) {
-                            monsterRegistry.removeMonster(monster.getName());
+                            monsterRegistry.getMonsterMap().remove(monster.getName());
                         }
+                    }
+                    if (monsterRegistry.getMonsterMap().isEmpty()) {
+                        break;
                     }
                     int heroIndex = random.nextInt(heroRegistry.getHeroMap().size());
                     int monsterIndex = random.nextInt(monsterRegistry.getMonsterMap().size());
                     battleUtlity.monsterAttack(monsterRegistry.getMonster(monsterRegistry.getMonsterMap().keySet().toArray()[monsterIndex].toString()),
                             heroRegistry.getHero(heroRegistry.getHeroMap().keySet().toArray()[heroIndex].toString()));
                 }
-                turn++;
 
                 for (Hero hero : heroRegistry.getHeroMap().values()) {
                     if (hero.getHp() > 0 ) hero.setHp(hero.getHp() + 20);
@@ -426,7 +474,8 @@ public class GameStateMachine {
     public void winBattle() {
         if (currentState == GameState.BATTLE) {
             currentState = GameState.MOVE;
-            battleUtlity.endBattle();
+            System.out.println("Player wins the battle.");
+            battleUtlity.endBattle(monsterNumber, monsterAvgLevel);
         } else {
             System.out.println("Invalid action: Can only win or flee battle from BATTLE state.");
         }
